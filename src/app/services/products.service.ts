@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-interface product {
+interface Item {
   name: string;
   description: string;
   price: number;
@@ -14,7 +14,7 @@ const tomato = {
   price: 1,
   isValiable: true,
   ingredients: ['water', 'vitamins']
-} as product;
+} as Item;
 
 const cucumber = {
   name: 'cucumber',
@@ -22,7 +22,7 @@ const cucumber = {
   price: 1.15,
   isValiable: true,
   ingredients: ['water', 'vitamins']
-} as product;
+} as Item;
 
 const products = [tomato, cucumber];
 
