@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 
+const productList = [];
+
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  productList = [];
 
   buyProduct(item): void {
-    // this.productList.push(item);
+    productList.push(item);
+    console.log(productList);
   }
 
   getAll(): Array<any> {
-    return this.productList;
+    return productList;
   }
 
   constructor() { }

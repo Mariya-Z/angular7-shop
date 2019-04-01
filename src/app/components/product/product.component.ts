@@ -26,7 +26,7 @@ export class ProductComponent implements OnInit {
   }
 
   onBuy(): void {
-    this.cartService.buyProduct('item');
+    this.cartService.buyProduct(this);
     console.log('You have bought ' + this.name);
   }
 
