@@ -4,7 +4,7 @@ interface Item {
   name: string;
   description: string;
   price: number;
-  isValiable: boolean;
+  isAvailable: boolean;
   ingredients: string[];
 }
 
@@ -12,7 +12,7 @@ const tomato = {
   name: 'tomato',
   description: 'best choise for salad',
   price: 1,
-  isValiable: true,
+  isAvailable: true,
   ingredients: ['water', 'vitamins']
 } as Item;
 
@@ -20,7 +20,7 @@ const cucumber = {
   name: 'cucumber',
   description: 'best choise for salad',
   price: 1.15,
-  isValiable: true,
+  isAvailable: true,
   ingredients: ['water', 'vitamins']
 } as Item;
 
