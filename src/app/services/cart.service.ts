@@ -1,18 +1,26 @@
 import { Injectable } from '@angular/core';
 
-const productList = [];
+interface Item {
+  name: string;
+  description: string;
+  price: number;
+  isAvailable: boolean;
+  ingredients: string[];
+}
+
+const productList: Item[] = [];
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  buyProduct(item): void {
+  buyProduct(item: Item): void {
     productList.push(item);
     console.log(productList);
   }
 
-  getAll(): Array<any> {
+  getAll(): Array<Item> {
     return productList;
   }
 
