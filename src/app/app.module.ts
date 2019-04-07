@@ -6,6 +6,7 @@ import { ProductComponent } from './components/product/product.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { CartListComponent } from './components/cart-list/cart-list.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
     ProductComponent,
     ProductListComponent,
     CartListComponent,
-    CartItemComponent
+    CartItemComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
