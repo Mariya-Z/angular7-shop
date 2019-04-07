@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-// const productList: ProductList[] = [];
-
 @Injectable({
   providedIn: 'root'
 })
@@ -21,23 +19,16 @@ export class CartService {
     } else {
       this.productList.push({item, quantity: 1});
     }
-    console.log(this.productList);
   }
 
-  removeProduct(item: Item) {
-    let i = -1;
-    this.productList.forEach((product, index) => {
-      if (product.item === item) {
-        i = index;
+  removeProduct(i: number) {
+    if (i >= 0) {
+      if (this.productList[i].quantity > 1) {
+        this.productList[i].quantity -= 1;
+      } else {
+        this.productList.splice(i, 1);
       }
-    });
-    console.log(i);
-    if (i >= 0 && this.productList[i].quantity > 1) {
-      this.productList[i].quantity -= 1;
-    } else if (i >= 0) {
-      delete this.productList[i];
     }
-    console.log(this.productList);
   }
 
   getAll(): ProductList[] {

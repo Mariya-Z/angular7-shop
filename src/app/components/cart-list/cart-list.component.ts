@@ -15,18 +15,15 @@ export class CartListComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     // this.productList = this.cartService.getAll();
-    // this.itemList = this.productList.map(product => product.item);
-    // console.log('itemList');
-    // console.log(this.itemList);
   }
 
   ngDoCheck() {
     this.productList = this.cartService.getAll();
   }
 
-  // onRemove(): void {
-  //   // this.
-  // }
+  onRemove(i: number): void {
+    this.cartService.removeProduct(i);
+  }
 
   getNumber(): number {
     let amount  = 0;
