@@ -1,0 +1,16 @@
+<p>Your purchases</p>
+
+<div *ngIf="productList.length > 0; else msg">
+  <app-cart-item *ngFor="let product of productList"
+    [name]="product.item.name"
+    [description]="product.item.description"
+    [price]="product.item.price"
+    [quantity]="product.quantity"
+  >
+    <button>Remove</button>
+  </app-cart-item>
+  <p>Total number: {{ getNumber() }}</p>
+  <p>Cost: {{ getSum() }}</p>
+</div>
+
+<ng-template #msg>You cart is empty still</ng-template>

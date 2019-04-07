@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CartService } from 'src/app/services/cart.service';
 
 export enum category {
   FOOD,
@@ -20,14 +19,10 @@ export class ProductComponent implements OnInit {
   @Input() ingredients: string[];
   category = category.DRINK;
 
-  constructor(public cartService: CartService) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  onBuy(): void {
-    this.cartService.buyProduct(this);
-    console.log('You have bought ' + this.name);
-  }
 
 }

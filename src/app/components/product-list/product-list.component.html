@@ -5,5 +5,13 @@
     [price]="product.price"
     [isAvailable]="product.isAvailable"
     [ingredients]="product.ingredients">
+
+    <button
+      [disabled]="!product.isAvailable"
+      (click)="onBuy(product)"
+    >
+      Buy!
+    </button>
+
   </app-product>
 </div>
