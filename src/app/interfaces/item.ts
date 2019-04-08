@@ -4,4 +4,5 @@ interface Item {
     price: number;
     isAvailable: boolean;
     ingredients: string[];
+    weight?: number;
 }
