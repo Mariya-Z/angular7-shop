@@ -17,6 +17,7 @@ export class ProductComponent implements OnInit {
   @Input() price: number;
   @Input() isAvailable: boolean;
   @Input() ingredients: string[];
+  @Input() weight: number;
   category = category.DRINK;
 
   constructor() { }

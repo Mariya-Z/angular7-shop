@@ -5,7 +5,8 @@ const tomato = {
   description: 'best choise for salad',
   price: 1,
   isAvailable: true,
-  ingredients: ['water', 'vitamins']
+  ingredients: ['water', 'vitamins'],
+  weight: 100
 } as Item;
 
 const soup = {
@@ -21,7 +22,8 @@ const cucumber = {
   description: 'best choise for salad',
   price: 1.5,
   isAvailable: true,
-  ingredients: ['water', 'vitamins']
+  ingredients: ['water', 'vitamins'],
+  weight: 150
 } as Item;
 
 const products = [tomato, soup, cucumber];
