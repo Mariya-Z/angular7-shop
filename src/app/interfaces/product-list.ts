@@ -1,4 +1,4 @@
 interface ProductList {
-    item: Item;
-    quantity: number;
-  }
+  item: Item;
+  quantity: number;
+}
