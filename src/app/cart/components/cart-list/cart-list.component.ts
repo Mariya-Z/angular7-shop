@@ -3,6 +3,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   DoCheck,
+  OnChanges,
 } from '@angular/core';
 import { CartService } from 'src/app/cart/services/cart/cart.service';
 
@@ -12,34 +13,29 @@ import { CartService } from 'src/app/cart/services/cart/cart.service';
   styleUrls: ['./cart-list.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CartListComponent implements OnInit, DoCheck {
+export class CartListComponent implements OnChanges, DoCheck {
   productList: ProductList[];
+  productNumber: number;
+  productSum: number;
 
   constructor(public cartService: CartService) {}
 
-  ngOnInit() {}
+  ngOnChanges() {
+    this.productList = this.cartService.getAll();
+
+  }
 
   ngDoCheck() {
     this.productList = this.cartService.getAll();
+    this.productNumber = this.cartService.getNumber();
+    this.productSum = this.cartService.getSum();
   }
 
   onRemove(product: ProductList): void {
     this.cartService.removeProduct(this.productList.indexOf(product));
   }
 
-  getNumber(): number {
-    let amount = 0;
-    for (const i of this.productList) {
-      amount += i.quantity;
-    }
-    return amount;
-  }
-
-  getSum(): number {
-    let price = 0;
-    for (const i of this.productList) {
-      price += i.item.price * i.quantity;
-    }
-    return price;
+  onRemoveAll(): void {
+    this.cartService.removeAll();
   }
 }

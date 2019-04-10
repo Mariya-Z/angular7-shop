@@ -6,8 +6,10 @@
     (buyEmit)="onRemove($event)"
   >
   </app-cart-item>
-  <p>Total number: {{ getNumber() }}</p>
-  <p>Cost: {{ getSum() }}</p>
+  <p>Total number: {{ productNumber }}</p>
+  <p>Cost: {{ productSum }}</p>
+
+  <button (click)="onRemoveAll">Remove all products</button>
 </div>
 
 <ng-template #msg>You cart is empty still</ng-template>
