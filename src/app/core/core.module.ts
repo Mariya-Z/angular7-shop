@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LocalStorageService } from './local-storage/local-storage.service';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [ContactUsComponent],
+  exports: [ContactUsComponent],
   imports: [CommonModule],
-  providers: [LocalStorageService],
 })
 export class CoreModule {}
