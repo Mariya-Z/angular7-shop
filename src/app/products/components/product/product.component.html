@@ -1,12 +1,12 @@
 <div class="item"
-    [ngClass]="{'warning': !isAvailable}">
+    [ngClass]="{'warning': !product.isAvailable}">
     <p>{{ 'product' | uppercase}}</p>
-    <p>Name: {{ name }} </p>
-    <p>Description: {{ description }}</p>
-    <p>Price: {{ price }}</p>
-    <p>Available: {{ isAvailable }}</p>
-    <p>Ingredients: {{ ingredients }}</p>
-    <p *ngIf="weight">Weight: {{ weight }}</p>
+    <p>Name: {{ product.name }} </p>
+    <p>Description: {{ product.description }}</p>
+    <p>Price: {{ product.price }}</p>
+    <p>Available: {{ product.isAvailable }}</p>
+    <p>Ingredients: {{ product.ingredients }}</p>
+    <p *ngIf="weight">Weight: {{ product.weight }}</p>
 
     <ng-content></ng-content>
 </div>

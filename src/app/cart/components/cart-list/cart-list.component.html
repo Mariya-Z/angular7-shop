@@ -2,12 +2,9 @@
 
 <div *ngIf="productList.length > 0; else msg">
   <app-cart-item *ngFor="let product of productList; let i = index"
-    [name]="product.item.name"
-    [description]="product.item.description"
-    [price]="product.item.price"
-    [quantity]="product.quantity"
+    [product]=product
+    (buyEmit)="onRemove($event)"
   >
-    <button (click)="onRemove(i)">Remove</button>
   </app-cart-item>
   <p>Total number: {{ getNumber() }}</p>
   <p>Cost: {{ getSum() }}</p>

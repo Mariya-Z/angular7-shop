@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, DoCheck } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  DoCheck,
+} from '@angular/core';
 import { CartService } from 'src/app/cart/services/cart/cart.service';
 
 @Component({
@@ -8,27 +13,24 @@ import { CartService } from 'src/app/cart/services/cart/cart.service';
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartListComponent implements OnInit, DoCheck {
-
   productList: ProductList[];
 
-  constructor(public cartService: CartService) { }
+  constructor(public cartService: CartService) {}
 
-  ngOnInit() {
-    // this.productList = this.cartService.getAll();
-  }
+  ngOnInit() {}
 
   ngDoCheck() {
     this.productList = this.cartService.getAll();
   }
 
-  onRemove(i: number): void {
-    this.cartService.removeProduct(i);
+  onRemove(product: ProductList): void {
+    this.cartService.removeProduct(this.productList.indexOf(product));
   }
 
   getNumber(): number {
-    let amount  = 0;
+    let amount = 0;
     for (const i of this.productList) {
-      amount  += i.quantity;
+      amount += i.quantity;
     }
     return amount;
   }
@@ -40,5 +42,4 @@ export class CartListComponent implements OnInit, DoCheck {
     }
     return price;
   }
-
 }

@@ -12,12 +12,8 @@ export enum category {
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  @Input() name: string;
-  @Input() description: string;
-  @Input() price: number;
-  @Input() isAvailable: boolean;
-  @Input() ingredients: string[];
-  @Input() weight: number;
+
+  @Input() product: Item;
   category = category.DRINK;
 
   constructor() { }
