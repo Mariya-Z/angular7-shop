@@ -1,0 +1,9 @@
+<div class="item" appHighlight>
+    <p>{{ 'cartitem' | uppercase}}</p>
+    <p>Name: {{ product.item.name }} </p>
+    <p>Description: {{ product.item.description }}</p>
+    <p>Price: {{ product.item.price }}</p>
+    <p>Quantity: {{ product.quantity }}</p>
+
+    <button (click)="onRemove()">Remove</button>
+</div>

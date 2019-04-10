@@ -1,0 +1,13 @@
+<div>
+  <app-product *ngFor="let product of productList"
+    [product]=product>   
+
+    <button
+      [disabled]="!product.isAvailable"
+      (click)="onBuy(product)"
+    >
+      Buy!
+    </button>
+
+  </app-product>
+</div>
