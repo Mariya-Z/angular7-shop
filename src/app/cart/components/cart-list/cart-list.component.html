@@ -3,13 +3,17 @@
 <div *ngIf="productList.length > 0; else msg">
   <app-cart-item *ngFor="let product of productList; let i = index"
     [product]=product
-    (buyEmit)="onRemove($event)"
+    (removeEmit)="onRemove($event)"
+    (decreaseEmit)="decrease($event)"
+    (increaseEmit)="increase($event)"
   >
   </app-cart-item>
   <p>Total number: {{ productNumber }}</p>
   <p>Cost: {{ productSum }}</p>
 
-  <button (click)="onRemoveAll">Remove all products</button>
+  <button (click)="onRemoveAll()">Remove all products</button>
 </div>
 
 <ng-template #msg>You cart is empty still</ng-template>
+
+<!-- <button (click)="add()">tomato</button> -->
