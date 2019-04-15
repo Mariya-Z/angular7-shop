@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
-import { CoreModule } from '../core.module';
+import { CoreServicesModule } from '../core-services.module';
 
 @Injectable({
-  providedIn: CoreModule,
+  providedIn: CoreServicesModule,
 })
 export class LocalStorageService {
-  item: any;
+  setItem(item: Item): void {
+    localStorage.setItem(item.name, JSON.stringify(item));
+    console.log('setItem has been called');
+  }
 
-  setItem(value: any): void {
-    this.item = value;
+  getItem(item: Item): any {
+    console.log(localStorage.getItem(item.name));
+    console.log('getItem has been called');
   }
-  getItem(): any {
-    return this.item;
-  }
-  removeItem(): void {
-    this.item = '';
+
+  removeItem(item: Item): void {
+    localStorage.removeItem(item.name);
+    console.log('removeItem has been called');
   }
 }
