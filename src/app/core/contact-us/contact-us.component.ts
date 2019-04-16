@@ -1,7 +1,9 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, Optional, Inject } from '@angular/core';
 import { LocalStorageService } from '../services/local-storage.service';
 import { ConfigOptionsService } from '../services/config-options.service';
 import { ConstantsService } from '../services/constants.service';
+import { generatorN, GeneratorNFactory } from '../services/generator-n.factory';
+import { GeneratorService } from '../services/generator.service';
 
 const constant = {
   service: 'ConstantsService',
@@ -15,6 +17,12 @@ const constant = {
     {
       provide: ConstantsService,
       useValue: constant,
+    },
+    GeneratorService,
+    {
+      provide: generatorN,
+      useFactory: GeneratorNFactory(6),
+      deps: [GeneratorService],
     },
   ],
 })
@@ -37,6 +45,7 @@ export class ContactUsComponent {
     @Optional() private localStorage: LocalStorageService,
     @Optional() private configOptions: ConfigOptionsService,
     @Optional() public constants: ConstantsService,
+    @Optional() @Inject(generatorN) public generator: any[],
   ) {}
 
   onSet(): void {
