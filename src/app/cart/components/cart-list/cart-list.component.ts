@@ -1,10 +1,5 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  DoCheck,
-} from '@angular/core';
-import { CartService } from 'src/app/cart/services/cart/cart.service';
+import { Component, ChangeDetectionStrategy, DoCheck } from '@angular/core';
+import { CartService } from 'src/app/cart/services/cart.service';
 
 @Component({
   selector: 'app-cart-list',
@@ -12,34 +7,36 @@ import { CartService } from 'src/app/cart/services/cart/cart.service';
   styleUrls: ['./cart-list.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CartListComponent implements OnInit, DoCheck {
+export class CartListComponent implements DoCheck {
   productList: ProductList[];
+  productNumber: number;
+  productSum: number;
 
   constructor(public cartService: CartService) {}
 
-  ngOnInit() {}
-
   ngDoCheck() {
     this.productList = this.cartService.getAll();
+    this.productNumber = this.cartService.productNumber;
+    this.productSum = this.cartService.productSum;
   }
 
   onRemove(product: ProductList): void {
     this.cartService.removeProduct(this.productList.indexOf(product));
   }
 
-  getNumber(): number {
-    let amount = 0;
-    for (const i of this.productList) {
-      amount += i.quantity;
-    }
-    return amount;
+  onRemoveAll(): void {
+    this.cartService.removeAll();
   }
 
-  getSum(): number {
-    let price = 0;
-    for (const i of this.productList) {
-      price += i.item.price * i.quantity;
-    }
-    return price;
+  decrease(product: ProductList): void {
+    this.cartService.decrease(product);
   }
+
+  increase(product: ProductList): void {
+    this.cartService.increase(product);
+  }
+
+  // add(): void {
+  //   this.cartService.addProduct({item: this.productList[0].item, quantity: 10});
+  // }
 }

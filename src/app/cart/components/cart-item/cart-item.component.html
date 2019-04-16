@@ -3,7 +3,11 @@
     <p>Name: {{ product.item.name }} </p>
     <p>Description: {{ product.item.description }}</p>
     <p>Price: {{ product.item.price }}</p>
-    <p>Quantity: {{ product.quantity }}</p>
+    <p>
+        Quantity: {{ product.quantity }} 
+        <button (click)="onDecrease()">-</button>
+        <button (click)="onIncrease()">+</button>
+    </p>
 
     <button (click)="onRemove()">Remove</button>
 </div>
