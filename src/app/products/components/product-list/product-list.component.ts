@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from 'src/app/products/services/products/products.service';
+import { ProductsService } from 'src/app/products/services/products.service';
 import { CartService } from 'src/app/cart/services/cart.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { CartService } from 'src/app/cart/services/cart.service';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  productList: Item[];
+  productList: Promise<string>;
 
   constructor(public productsService: ProductsService,
               public cartService: CartService) { }
