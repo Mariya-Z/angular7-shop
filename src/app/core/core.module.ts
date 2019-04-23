@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { CoreServicesModule } from './core-services.module';
-import { ShowUpDirective } from './directive/show-up.directive';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [ContactUsComponent, ShowUpDirective],
+  declarations: [ContactUsComponent],
   exports: [ContactUsComponent],
-  imports: [CommonModule, CoreServicesModule],
+  imports: [CommonModule, CoreServicesModule, SharedModule],
 })
 export class CoreModule {}
