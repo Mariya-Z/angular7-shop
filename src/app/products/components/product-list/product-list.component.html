@@ -1,5 +1,5 @@
 <div>
-  <app-product *ngFor="let product of productList"
+  <app-product *ngFor="let product of productList | async"
     [product]=product>   
 
     <button
