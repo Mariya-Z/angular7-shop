@@ -14,7 +14,7 @@ export class HighlightDirective {
   }
 
   @HostListener('mouseenter') public onMouseEnter() {
-    this.background = 'red';
+    this.background = '#f6aadb';
   }
 
   @HostListener('mouseleave') public onMouseLeave() {

@@ -1,8 +1,17 @@
 <p>Your purchases</p>
 
 <div *ngIf="productList.length > 0; else msg">
-  <app-cart-item *ngFor="let product of productList; let i = index"
-    [product]=product
+  <select #selectedOption>
+    <option value="price">Price</option>
+    <option value="quantity">Quantity</option>
+    <option value="name">Name</option>
+  </select>
+
+  <p>Selected option: {{ selectedOption.value }}</p>
+
+  <app-cart-item
+    *ngFor="let product of (productList | orderBy : selectedOption.value : 'true' : 'true')"
+    [product]="product"
     (removeEmit)="onRemove($event)"
     (decreaseEmit)="decrease($event)"
     (increaseEmit)="increase($event)"
