@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'orderBy',
-  pure: false,
+  // pure: false,
 })
 export class OrderByPipe implements PipeTransform {
   transform(products: any, field: string, flag: boolean, args?: any): any {
