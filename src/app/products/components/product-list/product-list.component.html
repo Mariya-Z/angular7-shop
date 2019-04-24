@@ -1,13 +1,13 @@
 <div>
-  <app-product *ngFor="let product of productList | async"
-    [product]=product>   
-
-    <button
-      [disabled]="!product.isAvailable"
-      (click)="onBuy(product)"
+  <div>
+    <app-product
+      *ngFor="let product of (productList | async)"
+      [product]="product"
     >
-      Buy!
-    </button>
-
-  </app-product>
+      <button [disabled]="!product.isAvailable" (click)="onBuy(product)">
+        Buy!
+      </button>
+      <button (click)="onClick(product)">View</button>
+    </app-product>
+  </div>
 </div>

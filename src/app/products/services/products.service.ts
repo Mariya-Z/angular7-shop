@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 const tomato = {
+  id: 1,
   name: 'tomato',
   description: 'best choise for salad',
   price: 1,
@@ -10,6 +11,7 @@ const tomato = {
 } as Item;
 
 const soup = {
+  id: 2,
   name: 'borsh',
   description: 'national soup',
   price: 15,
@@ -18,6 +20,7 @@ const soup = {
 } as Item;
 
 const cucumber = {
+  id: 3,
   name: 'cucumber',
   description: 'best choise for salad',
   price: 1.5,
@@ -26,21 +29,25 @@ const cucumber = {
   weight: 150,
 } as Item;
 
-const products = [tomato, soup, cucumber];
+const productList = [tomato, soup, cucumber];
+const productListPromise = Promise.resolve(productList);
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  // getProducts(): Array<any> {
-  //   return products;
-  // }
-
-  getProducts(): Promise<string> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(products);
-      }, 50);
-    }).catch(error => error) as Promise<string>;
+  getProducts(): Promise<Item[]> {
+    return productListPromise;
   }
+
+  getProduct(id: number): Promise<Item> {
+    return this.getProducts()
+      .then(items => items.find(item => item.id === id))
+      .catch(() => Promise.reject('Error in getProduct method'));
+  }
+
+  // (id: number | string): Promise<TaskModel> {
+  //   return this.getTasks()
+  //     .then(tasks => tasks.find(task => task.id === +id))
+  //     .catch(() => Promise.reject('Error in getTask method'));
 }
