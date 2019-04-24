@@ -1,10 +1,19 @@
-<h1 #appTitle>{{ appTitle.value }}</h1> 
+<h1 #appTitle>{{ appTitle.value }}</h1>
+<ul>
+  <li routerLinkActive="active">
+    <a routerLink="/admin">Admin</a>
+  </li>
+  <li routerLinkActive="active">
+    <a routerLink="/product-list">Product List</a>
+  </li>
+</ul>
+
 <div class="routing">
-    <router-outlet
-      (activate)="onActivate($event)"
-      (deactivate)="onDeactivate($event)"
-    ></router-outlet>
-  </div>
+  <router-outlet
+    (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)"
+  ></router-outlet>
+</div>
 <!-- <app-contact-us></app-contact-us> -->
 <!-- <h3>ProductComponent</h3>
 <app-product
@@ -15,7 +24,7 @@
   [ingredients]="['coffee', 'milk']">
 </app-product> -->
 
-<h3>ProductListComponent</h3>
+<!-- <h3>ProductListComponent</h3> -->
 <!-- <app-product-list></app-product-list> -->
 
 <h3>CartListComponent</h3>
