@@ -5,6 +5,7 @@
     <app-product
       *ngFor="let product of (productList | async)"
       [product]="product"
+      (editProduct)="onEditProduct($event)"
     >
       <button [disabled]="!product.isAvailable" (click)="onBuy(product)">
         Buy!

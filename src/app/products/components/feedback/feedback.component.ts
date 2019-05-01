@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ProductsService } from '../../services';
 
 @Component({
   selector: 'app-feedback',
@@ -7,14 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./feedback.component.scss'],
 })
 export class FeedbackComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private productService: ProductsService,
+    private route: ActivatedRoute,
+  ) {}
 
-  ngOnInit() {
-    console.log('feedback');
-  }
+  ngOnInit() {}
 
   onClose() {
-    this.router.navigate([{ outlets: { feedback: null } }]);
-    // this.messagesService.isDisplayed = false;
+    this.router.navigate(['.././'], { relativeTo: this.route });
+    this.productService.isDisplayed = true;
   }
 }

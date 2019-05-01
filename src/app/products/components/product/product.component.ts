@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
@@ -17,10 +17,8 @@ export enum category {
 })
 export class ProductComponent implements OnInit {
   @Input() product: Item;
-  isDisplayed = true;
-  // category = category.DRINK;
-
-  // product: Item;
+  @Output() editProduct = new EventEmitter<Item>();
+  isDisplayed = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,9 +29,9 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     if (!this.product) {
       this.product = {} as Item;
+      this.productService.isDisplayed = true;
 
-
-       // it is not necessary to save subscription to route.paramMap
+      // it is not necessary to save subscription to route.paramMap
       // it handles automatically
       this.route.paramMap
         .pipe(
@@ -48,8 +46,15 @@ export class ProductComponent implements OnInit {
     }
   }
 
-   onShowFeedback(): void {
-    // this.isDisplayed = false;
-    this.router.navigate([{ outlets: { feedback: ['feedback'] } }]);
+  onShowFeedback(): void {
+    this.productService.isDisplayed = false;
+    this.router.navigate([
+      `product/${this.product.id}`,
+      { outlets: { feedback: ['feedback'] } },
+    ]);
+  }
+
+  onEditProduct(): void {
+    this.editProduct.emit(this.product);
   }
 }

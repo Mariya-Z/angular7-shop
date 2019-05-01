@@ -36,11 +36,14 @@ const productListPromise = Promise.resolve(productList);
   providedIn: 'root',
 })
 export class ProductsService {
+  isDisplayed = false;
   getProducts(): Promise<Item[]> {
     return productListPromise;
   }
 
   getProduct(id: number): Promise<Item> {
+    console.log('id');
+    console.log(id);
     return this.getProducts()
       .then(items => items.find(item => item.id === id))
       .catch(() => Promise.reject('Error in getProduct method'));

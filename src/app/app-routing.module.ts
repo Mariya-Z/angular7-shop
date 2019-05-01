@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProductListComponent, ProductComponent } from './products';
+import { ProductListComponent, ProductComponent, FeedbackComponent } from './products';
 import { PathNotFoundComponent } from './shared';
 
 const routes: Routes = [
@@ -11,12 +11,14 @@ const routes: Routes = [
   {
     path: 'product/:productID',
     component: ProductComponent,
+    children: [
+      {
+        path: 'feedback',
+        component: FeedbackComponent,
+        outlet: 'feedback',
+      }
+    ]
   },
-  // {
-  //   path: 'feedback',
-  //   component: PathNotFoundComponent,
-  //   outlet: 'feedback',
-  // },
   {
     path: '',
     redirectTo: '/product-list',

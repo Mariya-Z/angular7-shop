@@ -30,4 +30,9 @@ export class ProductListComponent implements OnInit {
     const link = ['/product', item.id];
     this.router.navigate(link);
   }
+
+  onEditProduct(item: Item): void {
+    const link = ['product/edit', item.id];
+    this.router.navigate(link);
+  }
 }

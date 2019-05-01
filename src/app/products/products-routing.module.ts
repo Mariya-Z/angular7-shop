@@ -1,14 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FeedbackComponent } from './components';
+import { FeedbackComponent, ProductComponent } from './components';
 
-const routes: Routes = [
-  {
-    path: 'feedback',
-    component: FeedbackComponent,
-    outlet: 'feedback',
-  },
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

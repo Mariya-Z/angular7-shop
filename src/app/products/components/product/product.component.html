@@ -8,16 +8,20 @@
     <p>Ingredients: {{ product.ingredients }}</p>
     <p *ngIf="weight">Weight: {{ product.weight }}</p>
 
+    <button (click)="onEditProduct()">
+      Edit
+    </button>
+
     <ng-content></ng-content>
   </div>
 
   <div>
-    <button *ngIf="isDisplayed" (click)="onShowFeedback()">
+    <button *ngIf="productService.isDisplayed" (click)="onShowFeedback()">
       Show Feedback
     </button>
     <!-- class="btn btn-success"
     *ngIf="!messagesService.isDisplayed" -->
     <router-outlet name="feedback"></router-outlet>
-    <a [routerLink]="[{ outlets: { feedback: ['feedback'] } }]">feedback</a>
+    <!-- <a [routerLink]="[{ outlets: { feedback: ['feedback'] } }]">feedback</a> -->
   </div>
 </div>
