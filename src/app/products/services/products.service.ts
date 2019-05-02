@@ -42,15 +42,12 @@ export class ProductsService {
   }
 
   getProduct(id: number): Promise<Item> {
-    console.log('id');
-    console.log(id);
     return this.getProducts()
       .then(items => items.find(item => item.id === id))
       .catch(() => Promise.reject('Error in getProduct method'));
   }
 
-  // (id: number | string): Promise<TaskModel> {
-  //   return this.getTasks()
-  //     .then(tasks => tasks.find(task => task.id === +id))
-  //     .catch(() => Promise.reject('Error in getTask method'));
+  createProduct(product: Item): void {
+    productList.push(product);
+  }
 }

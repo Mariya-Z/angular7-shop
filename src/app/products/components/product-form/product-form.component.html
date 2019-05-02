@@ -1,3 +1,86 @@
-<p>
-  product-form works!
-</p>
+<div>
+  <h4>Product form</h4>
+
+  <div>
+    <form (ngSubmit)="onProductSave()" #form="ngForm">
+      <div>
+        <label for="id">Id</label>
+        <input
+          type="number"
+          id="id"
+          name="id"
+          placeholder="id"
+          required
+          [(ngModel)]="product.id"
+        />
+      </div>
+
+      <div>
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="name"
+          required
+          [(ngModel)]="product.name"
+        />
+      </div>
+
+      <div>
+        <label for="description">Description</label>
+        <input
+          type="text"
+          id="description"
+          name="description"
+          placeholder="description"
+          required
+          [(ngModel)]="product.description"
+        />
+      </div>
+
+      <div>
+        <label for="price">Price</label>
+        <input
+          type="number"
+          id="price"
+          name="price"
+          placeholder="price"
+          required
+          [(ngModel)]="product.price"
+        />
+      </div>
+
+      <div>
+        <label for="available">Available</label>
+        <input
+          type="checkbox"
+          id="available"
+          name="available"
+          placeholder="available"
+          [(ngModel)]="product.isAvailable"
+        />
+      </div>
+
+      <div>
+        <label for="ingredients">Ingredients</label>
+        <input
+          type="text"
+          id="ingredients"
+          name="ingredients"
+          placeholder="ingredients"
+          required
+          [(ngModel)]="product.ingredients"
+        />
+      </div>
+
+      <button type="submit" [disabled]="form.invalid">
+        Save
+      </button>
+
+      <button type="button" (click)="onGoBack()">
+        Back
+      </button>
+    </form>
+  </div>
+</div>

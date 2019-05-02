@@ -9,6 +9,10 @@ const routes: Routes = [
     component: ProductListComponent,
   },
   {
+    path: 'admin',
+    loadChildren: './admin'
+  },
+  {
     path: 'product/:productID',
     component: ProductComponent,
     children: [

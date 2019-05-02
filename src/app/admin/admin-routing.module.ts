@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { ProductListComponent } from '../products';
 import { CartListComponent } from '../cart';
+import { ProductsComponent } from '../products/products.component';
+import { ProductFormComponent } from '../products/components/product-form/product-form.component';
 
 const routes: Routes = [
   {
@@ -12,7 +14,15 @@ const routes: Routes = [
       {
         path: '',
         children: [
-          { path: 'products', component: ProductListComponent },
+          {
+            path: '',
+            component: ProductsComponent,
+            children: [
+              { path: 'products', component: ProductListComponent },
+              { path: 'product/add', component: ProductFormComponent },
+              { path: '**', redirectTo: './products', pathMatch: 'full' },
+            ],
+          },
           { path: 'cart', component: CartListComponent },
         ],
       },

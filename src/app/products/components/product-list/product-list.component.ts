@@ -19,6 +19,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.productList = this.productsService.getProducts();
+    this.productsService.isDisplayed = false;
   }
 
   onBuy(item: Item): void {

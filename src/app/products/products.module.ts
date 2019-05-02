@@ -8,6 +8,8 @@ import {
 import { SharedModule } from '../shared/shared.module';
 import { ProductRoutingModule } from './products-routing.module';
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductsComponent } from './products.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,8 +17,14 @@ import { ProductFormComponent } from './components/product-form/product-form.com
     ProductListComponent,
     FeedbackComponent,
     ProductFormComponent,
+    ProductsComponent,
   ],
-  exports: [ProductComponent, ProductListComponent, FeedbackComponent],
-  imports: [CommonModule, SharedModule, ProductRoutingModule],
+  exports: [
+    ProductComponent,
+    ProductListComponent,
+    FeedbackComponent,
+    ProductsComponent,
+  ],
+  imports: [CommonModule, FormsModule, SharedModule, ProductRoutingModule],
 })
 export class ProductsModule {}
