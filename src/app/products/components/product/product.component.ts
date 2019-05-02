@@ -53,8 +53,4 @@ export class ProductComponent implements OnInit {
       { outlets: { feedback: ['feedback'] } },
     ]);
   }
-
-  onEditProduct(): void {
-    this.editProduct.emit(this.product);
-  }
 }

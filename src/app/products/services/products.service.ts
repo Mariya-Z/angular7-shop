@@ -50,4 +50,12 @@ export class ProductsService {
   createProduct(product: Item): void {
     productList.push(product);
   }
+
+  updateProduct(product: Item): void {
+    const i = productList.findIndex(u => u.id === product.id);
+
+    if (i > -1) {
+      productList.splice(i, 1, product);
+    }
+  }
 }

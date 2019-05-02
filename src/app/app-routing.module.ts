@@ -21,21 +21,20 @@ const routes: Routes = [
   },
   // {
   //   path: 'admin',
-  //   component: AdminComponent,
-  //   canActivate: [AuthGuard],
-  //   // loadChildren: './admin',
+  //   // canLoad: [AuthGuard],
+  //   loadChildren: './admin/admin.module#AdminModule',
   // },
-  {
-    path: 'product/:productID',
-    component: ProductComponent,
-    children: [
-      {
-        path: 'feedback',
-        component: FeedbackComponent,
-        outlet: 'feedback',
-      },
-    ],
-  },
+  // {
+  //   path: 'product/:productID',
+  //   component: ProductComponent,
+  //   children: [
+  //     {
+  //       path: 'feedback',
+  //       component: FeedbackComponent,
+  //       outlet: 'feedback',
+  //     },
+  //   ],
+  // },
   {
     path: '',
     redirectTo: '/product-list',

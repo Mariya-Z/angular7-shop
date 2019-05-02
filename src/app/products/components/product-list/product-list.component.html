@@ -7,10 +7,13 @@
       [product]="product"
       (editProduct)="onEditProduct($event)"
     >
+      <button (click)="onEditProduct(product)">
+        Edit
+      </button>
       <button [disabled]="!product.isAvailable" (click)="onBuy(product)">
         Buy!
       </button>
-      <button (click)="onClick(product)">View</button>
+      <button (click)="onView(product)">View</button>
     </app-product>
   </div>
 </div>

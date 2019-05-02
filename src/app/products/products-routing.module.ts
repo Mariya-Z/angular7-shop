@@ -1,8 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FeedbackComponent, ProductComponent } from './components';
+import { FeedbackComponent, ProductComponent, ProductFormComponent } from './components';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'product/:productID',
+    component: ProductComponent,
+    children: [
+      {
+        path: 'feedback',
+        component: FeedbackComponent,
+        outlet: 'feedback',
+      },
+    ],
+  },
+  {
+    path: 'product/edit/:productID',
+    component: ProductFormComponent,
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
