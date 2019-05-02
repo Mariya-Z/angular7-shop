@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProductListComponent, ProductComponent, FeedbackComponent } from './products';
-import { PathNotFoundComponent } from './shared';
+import {
+  ProductListComponent,
+  ProductComponent,
+  FeedbackComponent,
+} from './products';
+import { PathNotFoundComponent, LoginComponent } from './shared';
+import { AdminComponent } from './admin';
+
+import { AuthGuard } from './core';
 
 const routes: Routes = [
   {
@@ -9,9 +16,15 @@ const routes: Routes = [
     component: ProductListComponent,
   },
   {
-    path: 'admin',
-    loadChildren: './admin'
+    path: 'login',
+    component: LoginComponent,
   },
+  // {
+  //   path: 'admin',
+  //   component: AdminComponent,
+  //   canActivate: [AuthGuard],
+  //   // loadChildren: './admin',
+  // },
   {
     path: 'product/:productID',
     component: ProductComponent,
@@ -20,8 +33,8 @@ const routes: Routes = [
         path: 'feedback',
         component: FeedbackComponent,
         outlet: 'feedback',
-      }
-    ]
+      },
+    ],
   },
   {
     path: '',

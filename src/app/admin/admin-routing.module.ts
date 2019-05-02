@@ -5,11 +5,13 @@ import { ProductListComponent } from '../products';
 import { CartListComponent } from '../cart';
 import { ProductsComponent } from '../products/products.component';
 import { ProductFormComponent } from '../products/components/product-form/product-form.component';
+import { AuthGuard } from '../core';
 
 const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
