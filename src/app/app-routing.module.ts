@@ -19,11 +19,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  // {
-  //   path: 'admin',
-  //   // canLoad: [AuthGuard],
-  //   loadChildren: './admin/admin.module#AdminModule',
-  // },
+  {
+    path: 'admin',
+    // canLoad: [AuthGuard],
+    loadChildren: './admin/admin.module#AdminModule',
+  },
   // {
   //   path: 'product/:productID',
   //   component: ProductComponent,

@@ -27,7 +27,7 @@ export class ProductListComponent implements OnInit {
     console.log('You have bought ' + item.name);
   }
 
-  onClick(item: Item): void {
+  onView(item: Item): void {
     const link = ['/product', item.id];
     this.router.navigate(link);
   }

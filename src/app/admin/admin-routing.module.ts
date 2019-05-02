@@ -6,10 +6,12 @@ import { CartListComponent } from '../cart';
 import { ProductsComponent } from '../products/products.component';
 import { ProductFormComponent } from '../products/components/product-form/product-form.component';
 import { AuthGuard } from '../core';
+import { CartModule } from '../cart/cart.module';
+import { ProductsModule } from '../products/products.module';
 
 const routes: Routes = [
   {
-    path: 'admin',
+    path: '',
     component: AdminComponent,
     canActivate: [AuthGuard],
     children: [
@@ -35,7 +37,7 @@ const routes: Routes = [
 export const adminRouterComponents = [AdminComponent];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes), CartModule, ProductsModule],
   exports: [RouterModule],
 })
 export class AdminRoutingModule {}

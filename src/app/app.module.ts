@@ -11,7 +11,6 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +22,6 @@ import { AdminModule } from './admin/admin.module';
     CoreModule,
     OrdersModule,
     SharedModule,
-    AdminModule,
 
     // LAST ONE
     AppRoutingModule,
