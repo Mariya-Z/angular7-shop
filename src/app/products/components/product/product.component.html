@@ -1,11 +1,23 @@
-<div class="item" [ngClass]="{ warning: !product.isAvailable }">
-  <p>{{ 'product' | uppercase }}</p>
-  <p>Name: {{ product.name | titlecase }}</p>
-  <p>Description: {{ product.description }}</p>
-  <p>Price: {{ product.price | currency: 'EUR' }}</p>
-  <p>Available: {{ product.isAvailable }}</p>
-  <p>Ingredients: {{ product.ingredients }}</p>
-  <p *ngIf="weight">Weight: {{ product.weight }}</p>
+<div class="product">
+  <div class="item" [ngClass]="{ warning: !product.isAvailable }">
+    <p>{{ 'product' | uppercase }}</p>
+    <p>Name: {{ product.name | titlecase }}</p>
+    <p>Description: {{ product.description }}</p>
+    <p>Price: {{ product.price | currency: 'EUR' }}</p>
+    <p>Available: {{ product.isAvailable }}</p>
+    <p>Ingredients: {{ product.ingredients }}</p>
+    <p *ngIf="weight">Weight: {{ product.weight }}</p>
 
-  <ng-content></ng-content>
+    <ng-content></ng-content>
+  </div>
+
+  <div>
+    <button *ngIf="productService.isDisplayed" (click)="onShowFeedback()">
+      Show Feedback
+    </button>
+    <!-- class="btn btn-success"
+    *ngIf="!messagesService.isDisplayed" -->
+    <router-outlet name="feedback"></router-outlet>
+    <!-- <a [routerLink]="[{ outlets: { feedback: ['feedback'] } }]">feedback</a> -->
+  </div>
 </div>

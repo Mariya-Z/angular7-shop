@@ -28,6 +28,7 @@ const constant = {
 })
 export class ContactUsComponent {
   item: Item = {
+    id: 1,
     name: 'tomato',
     description: 'best choise for salad',
     price: 1,

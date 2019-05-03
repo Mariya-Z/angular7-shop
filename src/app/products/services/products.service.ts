@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 const tomato = {
+  id: 1,
   name: 'tomato',
   description: 'best choise for salad',
   price: 1,
@@ -10,6 +11,7 @@ const tomato = {
 } as Item;
 
 const soup = {
+  id: 2,
   name: 'borsh',
   description: 'national soup',
   price: 15,
@@ -18,6 +20,7 @@ const soup = {
 } as Item;
 
 const cucumber = {
+  id: 3,
   name: 'cucumber',
   description: 'best choise for salad',
   price: 1.5,
@@ -26,21 +29,33 @@ const cucumber = {
   weight: 150,
 } as Item;
 
-const products = [tomato, soup, cucumber];
+const productList = [tomato, soup, cucumber];
+const productListPromise = Promise.resolve(productList);
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  // getProducts(): Array<any> {
-  //   return products;
-  // }
+  isDisplayed = false;
+  getProducts(): Promise<Item[]> {
+    return productListPromise;
+  }
 
-  getProducts(): Promise<string> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(products);
-      }, 50);
-    }).catch(error => error) as Promise<string>;
+  getProduct(id: number): Promise<Item> {
+    return this.getProducts()
+      .then(items => items.find(item => item.id === id))
+      .catch(() => Promise.reject('Error in getProduct method'));
+  }
+
+  createProduct(product: Item): void {
+    productList.push(product);
+  }
+
+  updateProduct(product: Item): void {
+    const i = productList.findIndex(u => u.id === product.id);
+
+    if (i > -1) {
+      productList.splice(i, 1, product);
+    }
   }
 }
