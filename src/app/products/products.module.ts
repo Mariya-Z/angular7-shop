@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     ProductComponent,
     ProductListComponent,
     FeedbackComponent,
+    ProductFormComponent,
     ProductsComponent,
   ],
   imports: [CommonModule, FormsModule, SharedModule, ProductRoutingModule],

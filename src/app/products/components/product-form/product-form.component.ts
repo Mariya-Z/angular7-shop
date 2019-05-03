@@ -19,18 +19,21 @@ export class ProductFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.pipe(
-      switchMap((params: Params) =>
-        this.productServie.getProduct(+params.get('productID')),
-      ),
-    )
-    .subscribe(
-      (item) => {
-        (this.product = { ...item });
-        this.isProductNew = false;
-      },
-      err => console.log(err),
-    );
+    this.route.paramMap
+      .pipe(
+        switchMap((params: Params) =>
+          this.productServie.getProduct(+params.get('productID')),
+        ),
+      )
+      .subscribe(
+        item => {
+          if (item) {
+            this.product = { ...item };
+            this.isProductNew = false;
+          }
+        },
+        err => console.log(err),
+      );
   }
 
   onProductSave() {
