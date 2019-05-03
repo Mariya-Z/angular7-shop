@@ -5,6 +5,7 @@ import {
   ProductComponent,
   ProductFormComponent,
 } from './components';
+import { ProductResolveGuard } from './guards';
 
 const routes: Routes = [
   {
@@ -25,6 +26,9 @@ const routes: Routes = [
   {
     path: 'product/edit/:productID',
     component: ProductFormComponent,
+    resolve: {
+      product: ProductResolveGuard,
+    }
   },
 ];
 

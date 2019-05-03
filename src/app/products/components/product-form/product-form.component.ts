@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../services';
-import { pluck, switchAll, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-form',
@@ -19,21 +18,13 @@ export class ProductFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.paramMap
-      .pipe(
-        switchMap((params: Params) =>
-          this.productServie.getProduct(+params.get('productID')),
-        ),
-      )
-      .subscribe(
-        item => {
-          if (item) {
-            this.product = { ...item };
-            this.isProductNew = false;
-          }
-        },
-        err => console.log(err),
-      );
+    this.route.data.subscribe(data => {
+      console.log(data);
+      if (Object.keys(data).length !== 0) {
+        this.product = { ...data.product };
+        this.isProductNew = false;
+      }
+    });
   }
 
   onProductSave() {

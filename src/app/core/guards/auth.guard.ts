@@ -5,6 +5,8 @@ import {
   RouterStateSnapshot,
   UrlTree,
   Router,
+  CanLoad,
+  Route,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -12,7 +14,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
@@ -25,6 +27,12 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     console.log('CanActivateGuard is called');
     const { url } = state;
+    return this.checkLogin(url);
+  }
+
+  canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
+    console.log('CanLoad Guard is called');
+    const url = `/${route.path}`;
     return this.checkLogin(url);
   }
 
