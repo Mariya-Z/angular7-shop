@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { ProductHttpService } from '../../services';
 import { ProductModel } from '../../model/product.model';
+import { Location } from '@angular/common';
 
 export enum category {
   FOOD,
@@ -25,6 +26,7 @@ export class ProductComponent implements OnInit {
     private route: ActivatedRoute,
     private productHttpService: ProductHttpService,
     private router: Router,
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -53,5 +55,9 @@ export class ProductComponent implements OnInit {
       `product/${this.product.id}`,
       { outlets: { feedback: ['feedback'] } },
     ]);
+  }
+
+  onGoBack() {
+    this.location.back();
   }
 }

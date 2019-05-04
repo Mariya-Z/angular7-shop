@@ -52,12 +52,5 @@
       "ingredients": "sugar, milk",
       "weight": 0
     }
-  ],
-  "users": [
-    {
-      "id": 1,
-      "firstName": "Anna",
-      "lastName": "Borisova"
-    }
   ]
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Observable } from 'rxjs';
+
 import { CartService } from 'src/app/cart/services/cart.service';
 import { ProductHttpService } from '../../services';
 import { ProductModel } from '../../model/product.model';
@@ -11,7 +13,8 @@ import { ProductModel } from '../../model/product.model';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  productList: Promise<ProductModel[]>;
+  productList: Observable<ProductModel[]>;
+  // : Promise<ProductModel[]>;
 
   constructor(
     public cartService: CartService,
@@ -40,9 +43,12 @@ export class ProductListComponent implements OnInit {
   }
 
   onDelete(product: ProductModel): void {
-    this.productHttpService
-      .deleteProduct(product)
-      .then(() => (this.productList = this.productHttpService.getProducts()))
-      .catch(error => console.log(error));
+    this.productList = this.productHttpService.deleteProduct(product);
+
+  // for service with Promise
+  //   this.productHttpService
+  //     .deleteProduct(product)
+  //     .then(() => (this.productList = this.productHttpService.getProducts()))
+  //     .catch(error => console.log(error));
   }
 }

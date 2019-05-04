@@ -8,6 +8,10 @@
     <p>Ingredients: {{ product.ingredients }}</p>
     <p *ngIf="weight">Weight: {{ product.weight }}</p>
 
+    <button *ngIf="productHttpService.isDisplayed" (click)="onGoBack()">
+      Back
+    </button>
+
     <ng-content></ng-content>
   </div>
 
