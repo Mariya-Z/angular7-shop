@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProductsService } from '../../services';
+import { ProductHttpService } from '../../services';
 
 @Component({
   selector: 'app-feedback',
@@ -10,7 +10,7 @@ import { ProductsService } from '../../services';
 export class FeedbackComponent implements OnInit {
   constructor(
     private router: Router,
-    private productService: ProductsService,
+    private productHttpService: ProductHttpService,
     private route: ActivatedRoute,
   ) {}
 
@@ -18,6 +18,6 @@ export class FeedbackComponent implements OnInit {
 
   onClose() {
     this.router.navigate(['.././'], { relativeTo: this.route });
-    this.productService.isDisplayed = true;
+    this.productHttpService.isDisplayed = true;
   }
 }

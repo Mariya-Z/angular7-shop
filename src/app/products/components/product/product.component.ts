@@ -2,7 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
-import { ProductsService } from '../../services';
+import { ProductHttpService } from '../../services';
+import { ProductModel } from '../../model/product.model';
 
 export enum category {
   FOOD,
@@ -16,27 +17,27 @@ export enum category {
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
-  @Input() product: Item;
+  @Input() product: ProductModel;
   @Output() editProduct = new EventEmitter<Item>();
   isDisplayed = false;
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductsService,
+    private productHttpService: ProductHttpService,
     private router: Router,
   ) {}
 
   ngOnInit(): void {
     if (!this.product) {
-      this.product = {} as Item;
-      this.productService.isDisplayed = true;
+      this.product = new ProductModel();
+      this.productHttpService.isDisplayed = true;
 
       // it is not necessary to save subscription to route.paramMap
       // it handles automatically
       this.route.paramMap
         .pipe(
           switchMap((params: Params) =>
-            this.productService.getProduct(+params.get('productID')),
+            this.productHttpService.getProduct(+params.get('productID')),
           ),
         )
         .subscribe(
@@ -47,7 +48,7 @@ export class ProductComponent implements OnInit {
   }
 
   onShowFeedback(): void {
-    this.productService.isDisplayed = false;
+    this.productHttpService.isDisplayed = false;
     this.router.navigate([
       `product/${this.product.id}`,
       { outlets: { feedback: ['feedback'] } },

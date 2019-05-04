@@ -12,11 +12,9 @@
   </div>
 
   <div>
-    <button *ngIf="productService.isDisplayed" (click)="onShowFeedback()">
+    <button *ngIf="productHttpService.isDisplayed" (click)="onShowFeedback()">
       Show Feedback
     </button>
-    <!-- class="btn btn-success"
-    *ngIf="!messagesService.isDisplayed" -->
     <router-outlet name="feedback"></router-outlet>
     <!-- <a [routerLink]="[{ outlets: { feedback: ['feedback'] } }]">feedback</a> -->
   </div>

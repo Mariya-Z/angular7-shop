@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProductsService } from '../../services';
+import { ProductHttpService } from '../../services';
+import { ProductModel } from '../../model/product.model';
 
 @Component({
   selector: 'app-product-form',
@@ -8,19 +9,18 @@ import { ProductsService } from '../../services';
   styleUrls: ['./product-form.component.scss'],
 })
 export class ProductFormComponent implements OnInit {
-  product: Item = {} as Item;
+  product: ProductModel = new ProductModel();
   isProductNew = true;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productServie: ProductsService,
+    private productHttpService: ProductHttpService,
   ) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      console.log(data);
-      if (Object.keys(data).length !== 0) {
+      if (data.product.id) {
         this.product = { ...data.product };
         this.isProductNew = false;
       }
@@ -28,12 +28,12 @@ export class ProductFormComponent implements OnInit {
   }
 
   onProductSave() {
-    if (this.isProductNew) {
-      this.productServie.createProduct(this.product);
-    } else {
-      this.productServie.updateProduct(this.product);
-    }
-    this.onGoBack();
+    const product = { ...this.product };
+
+    const method = this.isProductNew ? 'createProduct' : 'updateProduct';
+    this.productHttpService[method](product)
+      .then(() => this.onGoBack())
+      .catch(err => console.log(err));
   }
 
   onGoBack() {

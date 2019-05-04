@@ -10,6 +10,7 @@ import { ProductRoutingModule } from './products-routing.module';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductsComponent } from './products.component';
 import { FormsModule } from '@angular/forms';
+import { ProductsServiceModule } from './products-service.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,12 @@ import { FormsModule } from '@angular/forms';
     ProductFormComponent,
     ProductsComponent,
   ],
-  imports: [CommonModule, FormsModule, SharedModule, ProductRoutingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    SharedModule,
+    ProductRoutingModule,
+    ProductsServiceModule,
+  ],
 })
 export class ProductsModule {}

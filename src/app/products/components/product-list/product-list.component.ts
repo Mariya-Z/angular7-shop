@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from 'src/app/products/services/products.service';
-import { CartService } from 'src/app/cart/services/cart.service';
 import { Router } from '@angular/router';
+
+import { CartService } from 'src/app/cart/services/cart.service';
+import { ProductHttpService } from '../../services';
+import { ProductModel } from '../../model/product.model';
 
 @Component({
   selector: 'app-product-list',
@@ -9,17 +11,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  productList: Promise<Item[]>;
+  productList: Promise<ProductModel[]>;
 
   constructor(
-    public productsService: ProductsService,
     public cartService: CartService,
     private router: Router,
+    private productHttpService: ProductHttpService,
   ) {}
 
   ngOnInit() {
-    this.productList = this.productsService.getProducts();
-    this.productsService.isDisplayed = false;
+    this.productList = this.productHttpService.getProducts();
+    this.productHttpService.isDisplayed = false;
   }
 
   onBuy(item: Item): void {
@@ -35,5 +37,12 @@ export class ProductListComponent implements OnInit {
   onEditProduct(item: Item): void {
     const link = ['product/edit', item.id];
     this.router.navigate(link);
+  }
+
+  onDelete(product: ProductModel): void {
+    this.productHttpService
+      .deleteProduct(product)
+      .then(() => (this.productList = this.productHttpService.getProducts()))
+      .catch(error => console.log(error));
   }
 }
