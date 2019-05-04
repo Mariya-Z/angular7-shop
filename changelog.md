@@ -17,3 +17,5 @@ Task5
 Task6
 1. Backend has been done with json server
 2. Http service has been added
+3. ProductHttpService has all methods to get, create, update and delete products
+4. TimingInterceptor has been added
