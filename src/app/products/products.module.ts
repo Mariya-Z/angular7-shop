@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+// @ngrx
+import { StoreModule } from '@ngrx/store';
+import { productsReducer } from '../core/+store';
+
 import {
   ProductListComponent,
   ProductComponent,
@@ -33,6 +38,7 @@ import { ProductsServiceModule } from './products-service.module';
     SharedModule,
     ProductRoutingModule,
     ProductsServiceModule,
+    StoreModule.forFeature('products', productsReducer)
   ],
 })
 export class ProductsModule {}
