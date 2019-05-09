@@ -2,7 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Subscription } from 'rxjs';
+// @rxjs
+import { Store, select } from '@ngrx/store';
+import { AppState, ProductsState } from './../../../core/+store';
+import * as ProductsActions from './../../../core/+store/products/products.actions';
+
+// ngrx
+import { Subscription, Observable } from 'rxjs';
 
 import { ProductHttpService } from '../../services';
 import { ProductModel } from '../../model/product.model';
@@ -14,24 +20,36 @@ import { ProductModel } from '../../model/product.model';
 })
 export class ProductFormComponent implements OnInit, OnDestroy {
   product: ProductModel = new ProductModel();
+  productsState$ : Observable<ProductsState>;
   isProductNew = true;
   private sub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productHttpService: ProductHttpService,
+    private store: Store<AppState>,
+    // private productHttpService: ProductHttpService,
     private location: Location,
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      console.log(data);
-      if (Object.keys(data).length !== 0) {
-        this.product = { ...data.product };
-        this.isProductNew = false;
+    this.productsState$ = this.store.pipe(select('products'));
+    this.sub = this.productsState$.subscribe(productsState => 
+      this.product = productsState.selectedProduct);
+
+    this.route.paramMap.subscribe(param => {
+      const id = param.get('productID');
+      if (id) {
+        this.store.dispatch(new ProductsActions.GetProduct(+id));
       }
     });
+    // this.route.data.subscribe(data => {
+    //   console.log(data);
+    //   if (Object.keys(data).length !== 0) {
+    //     this.product = { ...data.product };
+    //     this.isProductNew = false;
+    //   }
+    // });
   }
 
   ngOnDestroy() {
@@ -56,9 +74,9 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     // for service with promise
     const product = { ...this.product };
     const method = this.isProductNew ? 'createProduct' : 'updateProduct';
-    this.productHttpService[method](product)
-      .then(() => this.onGoBack())
-      .catch(err => console.log(err));
+    // this.productHttpService[method](product)
+    //   .then(() => this.onGoBack())
+    //   .catch(err => console.log(err));
   }
 
   onGoBack() {

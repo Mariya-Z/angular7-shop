@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 // @ngrx
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/core/+store';
+import * as ProductsActions from './../../../core/+store/products/products.actions';
 
 import { Observable } from 'rxjs';
 
 import { CartService } from 'src/app/cart/services/cart.service';
-import { ProductHttpService } from '../../services';
 import { ProductModel } from '../../model/product.model';
 
 @Component({
@@ -17,7 +17,7 @@ import { ProductModel } from '../../model/product.model';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  productList: Observable<ProductModel[]>;
+  // productList: Observable<ProductModel[]>;
   // : Promise<ProductModel[]>;
   productsState$: Observable<ProductModel>;
 
@@ -25,14 +25,12 @@ export class ProductListComponent implements OnInit {
     public cartService: CartService,
     private router: Router,
     private store: Store<AppState>,
-    private productHttpService: ProductHttpService,
   ) {}
 
   ngOnInit() {
     console.log('We have a store! ', this.store);
     this.productsState$ = this.store.pipe(select('products'));
-    // this.productList = this.productHttpService.getProducts();
-    this.productHttpService.isDisplayed = false;
+    this.store.dispatch(new ProductsActions.GetProducts());
   }
 
   onBuy(item: Item): void {
@@ -51,7 +49,7 @@ export class ProductListComponent implements OnInit {
   }
 
   onDelete(product: ProductModel): void {
-    this.productList = this.productHttpService.deleteProduct(product);
+    // this.productList = this.productHttpService.deleteProduct(product);
 
     // for service with Promise
     //   this.productHttpService

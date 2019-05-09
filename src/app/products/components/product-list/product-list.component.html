@@ -1,5 +1,6 @@
 <h3>ProductListComponent</h3>
 
+<p *ngIf="(productsState$ | async).error as value">{{value}}</p>
 <div>
   <div>
     <app-product

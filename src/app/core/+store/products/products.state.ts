@@ -2,18 +2,16 @@ import { ProductModel } from 'src/app/products/model/product.model';
 
 export interface ProductsState {
   products: ReadonlyArray<ProductModel>;
+  selectedProduct: Readonly<ProductModel>;
+  readonly loading: boolean;
+  readonly loaded: boolean;
+  readonly error: Error | string;
 }
 
 export const initianalProductState: ProductsState = {
-  products: [
-    new ProductModel(
-      1,
-      'tomato',
-      'best choise for salad',
-      1,
-      true,
-      '\'water\', \'vitamins\'',
-      100,
-    ),
-  ],
+  products: [],
+  selectedProduct: null,
+  loading: false,
+  loaded: false,
+  error: null,
 };

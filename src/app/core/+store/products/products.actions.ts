@@ -3,7 +3,11 @@ import { ProductModel } from 'src/app/products/model/product.model';
 
 export enum ProductsActionTypes {
   GET_PRODUCTS = '[Products]  GET_PRODUCTS',
+  GET_PRODUCTS_SUCCESS = '[Products]  GET_PRODUCTS_SUCCESS',
+  GET_PRODUCTS_ERROR = '[Products]  GET_PRODUCTS_ERROR',
   GET_PRODUCT = '[Products]  GET_PRODUCT',
+  GET_PRODUCT_SUCCESS = '[Products]  GET_PRODUCT_SUCCESS',
+  GET_PRODUCT_ERROR = '[Products]  GET_PRODUCT_ERROR',
   CREATE_PRODUCT = '[Products]  CREATE_PRODUCT',
   UPDATE_PRODUCT = '[Products]  UPDATE_PRODUCT',
   DELETE_PRODUCT = '[Products]  DELETE_PRODUCT',
@@ -13,9 +17,29 @@ export class GetProducts implements Action {
   readonly type = ProductsActionTypes.GET_PRODUCTS;
 }
 
+export class GetProductsSuccess implements Action {
+  readonly type = ProductsActionTypes.GET_PRODUCTS_SUCCESS;
+  constructor(public payload: ProductModel[]) {}
+}
+
+export class GetProductsError implements Action {
+  readonly type = ProductsActionTypes.GET_PRODUCTS_ERROR;
+  constructor(public payload: Error | string) {}
+}
+
 export class GetProduct implements Action {
   readonly type = ProductsActionTypes.GET_PRODUCT;
   constructor(public payload: number) {}
+}
+
+export class GetProductSuccess implements Action {
+  readonly type = ProductsActionTypes.GET_PRODUCT_SUCCESS;
+  constructor(public payload: ProductModel) {}
+}
+
+export class GetProductError implements Action {
+  readonly type = ProductsActionTypes.GET_PRODUCT_ERROR;
+  constructor(public payload: Error | string) {}
 }
 
 export class CreateProduct implements Action {
@@ -35,7 +59,11 @@ export class DeleteProduct implements Action {
 
 export type ProductsActions =
   | GetProducts
+  | GetProductsSuccess
+  | GetProductsError
   | GetProduct
+  | GetProductSuccess
+  | GetProductError
   | CreateProduct
   | UpdateProduct
   | DeleteProduct;

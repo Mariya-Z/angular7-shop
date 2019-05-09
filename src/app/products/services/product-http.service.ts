@@ -16,18 +16,18 @@ export class ProductHttpService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<ProductModel[]> {
-    return this.http
-      .get<ProductModel[]>(this.productUrl)
-      .pipe(catchError(this.handleErrorObs));
-  }
+  // getProducts(): Observable<ProductModel[]> {
+  //   return this.http
+  //     .get<ProductModel[]>(this.productUrl)
+  //     .pipe(catchError(this.handleErrorObs));
+  // }
 
-  getProduct(id: number): Observable<ProductModel> {
-    const url = `${this.productUrl}/${id}`;
-    return this.http
-      .get<ProductModel>(url)
-      .pipe(catchError(this.handleErrorObs));
-  }
+  // getProduct(id: number): Observable<ProductModel> {
+  //   const url = `${this.productUrl}/${id}`;
+  //   return this.http
+  //     .get<ProductModel>(url)
+  //     .pipe(catchError(this.handleErrorObs));
+  // }
 
   deleteProduct(product: ProductModel): Observable<ProductModel[]> {
     const url = `${this.productUrl}/${product.id}`;
@@ -78,22 +78,22 @@ export class ProductHttpService {
     return throwError(errorMsg);
   }
 
-  // getProducts(): Promise<ProductModel[]> {
-  //   return this.http
-  //     .get(this.productUrl)
-  //     .toPromise()
-  //     .then(response => response as ProductModel[])
-  //     .catch(this.handleError);
-  // }
+  getProducts(): Promise<ProductModel[]> {
+    return this.http
+      .get(this.productUrl)
+      .toPromise()
+      .then(response => response as ProductModel[])
+      .catch(this.handleError);
+  }
 
-  // getProduct(id: number): Promise<ProductModel> {
-  //   const url = `${this.productUrl}/${id}`;
-  //   return this.http
-  //     .get(url)
-  //     .toPromise()
-  //     .then(response => response as ProductModel)
-  //     .catch(this.handleError);
-  // }
+  getProduct(id: number): Promise<ProductModel> {
+    const url = `${this.productUrl}/${id}`;
+    return this.http
+      .get(url)
+      .toPromise()
+      .then(response => response as ProductModel)
+      .catch(this.handleError);
+  }
 
   updateProduct(product: ProductModel): Promise<ProductModel> {
     const url = `${this.productUrl}/${product.id}`;
