@@ -13,3 +13,9 @@ Task5
     User will be redirect for login (canLoad guard), if he still is logout.
     After login user can see 'products' (same with 'produst-list'), 'product/add' add new product, 'product/edit/productID' edit info about existing product and 'cart' watch list of purchases
     ProductFormComponent is used to add and edit component. It uses ProductResolveGuard to get product.
+
+Task6
+1. Backend has been done with json server
+2. Http service has been added
+3. ProductHttpService has all methods to get, create, update and delete products
+4. TimingInterceptor has been added

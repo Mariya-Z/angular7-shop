@@ -1,0 +1,56 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "tomato",
+      "description": "best choise for salad",
+      "price": 1,
+      "isAvailable": true,
+      "ingredients": "'water', 'vitamins'",
+      "weight": 100
+    },
+    {
+      "id": 2,
+      "name": "borsh",
+      "description": "national soup",
+      "price": 15,
+      "isAvailable": false,
+      "ingredients": "'water', 'beet', 'potato', 'cabbage', 'carrot'"
+    },
+    {
+      "id": 3,
+      "name": "cucumber",
+      "description": "best choise for salad",
+      "price": 1.5,
+      "isAvailable": true,
+      "ingredients": "'water', 'vitamins'",
+      "weight": 150
+    },
+    {
+      "id": 4,
+      "name": "apple",
+      "description": "good snack",
+      "price": 2,
+      "isAvailable": true,
+      "ingredients": "'water', 'vitamins'"
+    },
+    {
+      "id": 5,
+      "name": "watermelon",
+      "description": "best for summer",
+      "price": 20,
+      "isAvailable": true,
+      "ingredients": "'water', 'vitamins'",
+      "weight": 0
+    },
+    {
+      "id": 6,
+      "name": "ice-cream",
+      "description": "tasty",
+      "price": 11,
+      "isAvailable": false,
+      "ingredients": "sugar, milk",
+      "weight": 0
+    }
+  ]
+}

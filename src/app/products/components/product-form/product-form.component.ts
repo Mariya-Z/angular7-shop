@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProductsService } from '../../services';
+import { Location } from '@angular/common';
+
+import { Subscription } from 'rxjs';
+
+import { ProductHttpService } from '../../services';
+import { ProductModel } from '../../model/product.model';
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss'],
 })
-export class ProductFormComponent implements OnInit {
-  product: Item = {} as Item;
+export class ProductFormComponent implements OnInit, OnDestroy {
+  product: ProductModel = new ProductModel();
   isProductNew = true;
+  private sub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productServie: ProductsService,
+    private productHttpService: ProductHttpService,
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -27,16 +34,35 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
-  onProductSave() {
-    if (this.isProductNew) {
-      this.productServie.createProduct(this.product);
-    } else {
-      this.productServie.updateProduct(this.product);
+  ngOnDestroy() {
+    // for service with Observable
+    if (this.sub) {
+      this.sub.unsubscribe();
     }
-    this.onGoBack();
+  }
+
+  onProductSave() {
+    // for service with Observable
+    // const product = { ...this.product };
+    // const method = this.isProductNew ? 'createProduct' : 'updateProduct';
+    // this.sub = this.productHttpService[method](product).subscribe(
+    //   () =>
+    //     product.id
+    //       ? this.router.navigate(['product', { editedProductID: product.id }])
+    //       : this.onGoBack(),
+    //   (error: any) => console.log(error),
+    // );
+
+    // for service with promise
+    const product = { ...this.product };
+    const method = this.isProductNew ? 'createProduct' : 'updateProduct';
+    this.productHttpService[method](product)
+      .then(() => this.onGoBack())
+      .catch(err => console.log(err));
   }
 
   onGoBack() {
-    this.router.navigate(['./../../../'], { relativeTo: this.route });
+    // this.router.navigate(['./../../../'], { relativeTo: this.route });
+    this.location.back();
   }
 }

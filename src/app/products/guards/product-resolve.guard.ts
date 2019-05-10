@@ -5,40 +5,53 @@ import {
   Resolve,
   Router,
 } from '@angular/router';
+
 import { Observable } from 'rxjs';
-import { ProductsService } from '../services';
+import { map } from 'rxjs/operators';
+
+import { ProductHttpService } from '../services';
+import { ProductModel } from '../model/product.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductResolveGuard implements Resolve<Item> {
+export class ProductResolveGuard implements Resolve<ProductModel> {
   constructor(
     private router: Router,
-    private productService: ProductsService,
+    private productHttpService: ProductHttpService,
   ) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
-  ): Observable<Item> | Promise<Item> | Item {
-    console.log(route.paramMap.has('productID'));
-
+  ): Observable<ProductModel> | Promise<ProductModel> | ProductModel {
     if (!route.paramMap.has('productID')) {
       return null;
     }
     const id = +route.paramMap.get('productID');
 
-    console.log(route.paramMap.get('productID'));
-
-    if (id) {
-      return this.productService.getProduct(id).then(product => {
+    return this.productHttpService.getProduct(id).pipe(
+      map((product: ProductModel) => {
         if (product) {
           return product;
         } else {
           this.router.navigate(['/products']);
           return null;
         }
-      });
-    }
+      }),
+    );
+
+    // if service return Promise
+
+    // if (id) {
+    //   return this.productHttpService.getProduct(id).then(product => {
+    //     if (product) {
+    //       return product;
+    //     } else {
+    //       this.router.navigate(['/products']);
+    //       return null;
+    //     }
+    //   });
+    // }
   }
 }
