@@ -10,7 +10,6 @@ import * as ProductsActions from './../../../core/+store/products/products.actio
 // ngrx
 import { Subscription, Observable } from 'rxjs';
 
-import { ProductHttpService } from '../../services';
 import { ProductModel } from '../../model/product.model';
 
 @Component({
@@ -20,27 +19,27 @@ import { ProductModel } from '../../model/product.model';
 })
 export class ProductFormComponent implements OnInit, OnDestroy {
   product: ProductModel = new ProductModel();
-  productsState$ : Observable<ProductsState>;
+  productsState$: Observable<ProductsState>;
   isProductNew = true;
   private sub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private store: Store<AppState>,
-    // private productHttpService: ProductHttpService,
     private location: Location,
   ) {}
 
   ngOnInit() {
     this.productsState$ = this.store.pipe(select('products'));
-    this.sub = this.productsState$.subscribe(productsState => 
-      this.product = productsState.selectedProduct);
+    this.sub = this.productsState$.subscribe(
+      productsState => (this.product = productsState.selectedProduct),
+    );
 
     this.route.paramMap.subscribe(param => {
       const id = param.get('productID');
       if (id) {
         this.store.dispatch(new ProductsActions.GetProduct(+id));
+        this.isProductNew = false;
       }
     });
     // this.route.data.subscribe(data => {
@@ -73,10 +72,11 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
     // for service with promise
     const product = { ...this.product };
-    const method = this.isProductNew ? 'createProduct' : 'updateProduct';
-    // this.productHttpService[method](product)
-    //   .then(() => this.onGoBack())
-    //   .catch(err => console.log(err));
+    if (this.isProductNew) {
+      this.store.dispatch(new ProductsActions.CreateProduct(product));
+    } else {
+      this.store.dispatch(new ProductsActions.UpdateProduct(product));
+    }
   }
 
   onGoBack() {

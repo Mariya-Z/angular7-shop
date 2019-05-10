@@ -80,6 +80,27 @@ export function productsReducer(
       return { ...state };
     }
 
+    case ProductsActionTypes.UPDATE_PRODUCT_SUCCESS: {
+      console.log('UPDATE_PRODUCT_SUCCESS action being handled!');
+      const product = { ...action.payload as ProductModel};
+      const products = [ ...state.products];
+      const i = products.findIndex(p => p.id === product.id);
+      products[i] = product;
+      return {
+        ...state,
+        products,
+      };
+    }
+
+    case ProductsActionTypes.UPDATE_PRODUCT_ERROR: {
+      console.log('UPDATE_PRODUCT_ERROR action being handled!');
+      const error = action.payload;
+      return {
+        ...state,
+        error,
+      };
+    }
+
     case ProductsActionTypes.DELETE_PRODUCT: {
       console.log('DELETE_PRODUCT action being handled!');
       return { ...state };
