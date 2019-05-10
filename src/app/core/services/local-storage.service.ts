@@ -19,4 +19,12 @@ export class LocalStorageService {
     localStorage.removeItem(item.name);
     console.log('removeItem has been called');
   }
+
+  saveSettings(key: string, items: Array<any>) {
+    localStorage.setItem(key, JSON.stringify(items));
+  }
+
+  getSettings(key: string) {
+    return JSON.parse(localStorage.getItem(key));
+  }
 }
