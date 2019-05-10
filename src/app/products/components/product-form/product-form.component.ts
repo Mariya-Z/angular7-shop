@@ -32,7 +32,13 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.productsState$ = this.store.pipe(select('products'));
     this.sub = this.productsState$.subscribe(
-      productsState => (this.product = productsState.selectedProduct),
+      productsState => {
+        if (productsState.selectedProduct) {
+          this.product = productsState.selectedProduct;
+        } else {
+          this.product = new ProductModel();
+        }
+      },
     );
 
     this.route.paramMap.subscribe(param => {

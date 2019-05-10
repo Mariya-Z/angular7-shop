@@ -25,6 +25,7 @@ export function productsReducer(
         products,
         loading: false,
         loaded: true,
+        selectedProduct: null,
       };
     }
 
@@ -75,6 +76,25 @@ export function productsReducer(
       return { ...state };
     }
 
+    case ProductsActionTypes.CREATE_PRODUCT_SUCCESS: {
+      console.log('CREATE_PRODUCT_SUCCESS action being handled!');
+      const product = { ...(action.payload as ProductModel) };
+      const products = [...state.products, product];
+      return {
+        ...state,
+        products,
+      };
+    }
+
+    case ProductsActionTypes.CREATE_PRODUCT_ERROR: {
+      console.log('CREATE_PRODUCT_ERROR action being handled!');
+      const error = action.payload;
+      return {
+        ...state,
+        error,
+      };
+    }
+
     case ProductsActionTypes.UPDATE_PRODUCT: {
       console.log('UPDATE_PRODUCT action being handled!');
       return { ...state };
@@ -82,8 +102,8 @@ export function productsReducer(
 
     case ProductsActionTypes.UPDATE_PRODUCT_SUCCESS: {
       console.log('UPDATE_PRODUCT_SUCCESS action being handled!');
-      const product = { ...action.payload as ProductModel};
-      const products = [ ...state.products];
+      const product = { ...(action.payload as ProductModel) };
+      const products = [...state.products];
       const i = products.findIndex(p => p.id === product.id);
       products[i] = product;
       return {
@@ -104,6 +124,27 @@ export function productsReducer(
     case ProductsActionTypes.DELETE_PRODUCT: {
       console.log('DELETE_PRODUCT action being handled!');
       return { ...state };
+    }
+
+    case ProductsActionTypes.DELETE_PRODUCT_SUCCESS: {
+      console.log('DELETE_PRODUCT_SUCCESS action being handled!');
+      const product = { ...(action.payload as ProductModel) };
+      console.log(product);
+      const products = state.products.filter(p => p.id !== product.id);
+      console.log(products);
+      return {
+        ...state,
+        products,
+      };
+    }
+
+    case ProductsActionTypes.DELETE_PRODUCT_ERROR: {
+      console.log('DELETE_PRODUCT_ERROR action being handled!');
+      const error = action.payload;
+      return {
+        ...state,
+        error,
+      };
     }
 
     default: {

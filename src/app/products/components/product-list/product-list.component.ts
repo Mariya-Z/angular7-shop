@@ -49,12 +49,6 @@ export class ProductListComponent implements OnInit {
   }
 
   onDelete(product: ProductModel): void {
-    // this.productList = this.productHttpService.deleteProduct(product);
-
-    // for service with Promise
-    //   this.productHttpService
-    //     .deleteProduct(product)
-    //     .then(() => (this.productList = this.productHttpService.getProducts()))
-    //     .catch(error => console.log(error));
+    this.store.dispatch(new ProductsActions.DeleteProduct(product));
   }
 }

@@ -63,10 +63,43 @@ export class ProductsEffects {
       this.productHttpService
         .updateProduct(payload)
         .then(product => {
-            this.router.navigate(['/product-list']);
-            return new ProductsActions.UpdateProductSuccess(product);
+          this.router.navigate(['/product-list']);
+          return new ProductsActions.UpdateProductSuccess(product);
         })
         .catch(err => new ProductsActions.UpdateProductError(err)),
+    ),
+  );
+
+  @Effect()
+  createProduct$: Observable<Action> = this.actions$.pipe(
+    ofType<ProductsActions.CreateProduct>(
+      ProductsActions.ProductsActionTypes.CREATE_PRODUCT,
+    ),
+    pluck('payload'),
+    switchMap((payload: ProductModel) =>
+      this.productHttpService
+        .createProduct(payload)
+        .then(product => {
+          this.router.navigate(['/product-list']);
+          return new ProductsActions.CreateProductSuccess(product);
+        })
+        .catch(err => new ProductsActions.CreateProductError(err)),
+    ),
+  );
+
+  @Effect()
+  deleteProduct$: Observable<Action> = this.actions$.pipe(
+    ofType<ProductsActions.DeleteProduct>(
+      ProductsActions.ProductsActionTypes.DELETE_PRODUCT,
+    ),
+    pluck('payload'),
+    concatMap((payload: ProductModel) =>
+      this.productHttpService
+        .deleteProduct(payload)
+        .then(() => {
+          return new ProductsActions.DeleteProductSuccess(payload);
+        })
+        .catch(err => new ProductsActions.DeleteProductError(err)),
     ),
   );
 }

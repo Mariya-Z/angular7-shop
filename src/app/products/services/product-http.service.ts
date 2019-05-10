@@ -29,12 +29,12 @@ export class ProductHttpService {
   //     .pipe(catchError(this.handleErrorObs));
   // }
 
-  deleteProduct(product: ProductModel): Observable<ProductModel[]> {
-    const url = `${this.productUrl}/${product.id}`;
+  // deleteProduct(product: ProductModel): Observable<ProductModel[]> {
+  //   const url = `${this.productUrl}/${product.id}`;
 
-    return this.http.delete(url)
-      .pipe(concatMap(() => this.getProducts()));
-  }
+  //   return this.http.delete(url)
+  //     .pipe(concatMap(() => this.getProducts()));
+  // }
 
   // updateProduct(product: ProductModel): Observable<ProductModel> {
   //   const url = `${this.productUrl}/${product.id}`;
@@ -123,14 +123,14 @@ export class ProductHttpService {
       .catch(this.handleError);
   }
 
-  // deleteProduct(product: ProductModel): Promise<ProductModel> {
-  //   const url = `${this.productUrl}/${product.id}`;
+  deleteProduct(product: ProductModel): Promise<ProductModel> {
+    const url = `${this.productUrl}/${product.id}`;
 
-  //   return this.http
-  //     .delete(url)
-  //     .toPromise()
-  //     .catch(this.handleError);
-  // }
+    return this.http
+      .delete(url)
+      .toPromise()
+      .catch(this.handleError);
+  }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
