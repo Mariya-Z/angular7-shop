@@ -40,20 +40,6 @@ export class ProductsEffects {
   );
 
   @Effect()
-  getProduct$: Observable<Action> = this.actions$.pipe(
-    ofType<ProductsActions.GetProduct>(
-      ProductsActions.ProductsActionTypes.GET_PRODUCT,
-    ),
-    pluck('payload'),
-    switchMap(payload =>
-      this.productHttpService
-        .getProduct(+payload)
-        .then(product => new ProductsActions.GetProductSuccess(product))
-        .catch(err => new ProductsActions.GetProductError(err)),
-    ),
-  );
-
-  @Effect()
   updateProduct$: Observable<Action> = this.actions$.pipe(
     ofType<ProductsActions.UpdateProduct>(
       ProductsActions.ProductsActionTypes.UPDATE_PRODUCT,

@@ -25,43 +25,11 @@ export function productsReducer(
         products,
         loading: false,
         loaded: true,
-        selectedProduct: null,
       };
     }
 
     case ProductsActionTypes.GET_PRODUCTS_ERROR: {
       console.log('GET_PRODUCTS_ERROR action being handled!');
-      const error = action.payload;
-      return {
-        ...state,
-        loading: false,
-        loaded: false,
-        error,
-      };
-    }
-
-    case ProductsActionTypes.GET_PRODUCT: {
-      console.log('GET_PRODUCT action being handled!');
-      return {
-        ...state,
-        loading: true,
-      };
-    }
-
-    case ProductsActionTypes.GET_PRODUCT_SUCCESS: {
-      console.log('GET_PRODUCT_SUCCESS action being handled!');
-      const selectedProduct = { ...(action.payload as ProductModel) };
-
-      return {
-        ...state,
-        selectedProduct,
-        loading: false,
-        loaded: true,
-      };
-    }
-
-    case ProductsActionTypes.GET_PRODUCT_ERROR: {
-      console.log('GET_PRODUCT_ERROR action being handled!');
       const error = action.payload;
       return {
         ...state,

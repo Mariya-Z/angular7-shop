@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 // @rxjs
 import { Store, select } from '@ngrx/store';
-import { AppState, getSelectedProduct } from './../../../core/+store';
+import { AppState, getSelectedProductByUrl } from './../../../core/+store';
 import * as ProductsActions from './../../../core/+store/products/products.actions';
 
 // ngrx
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { ProductModel } from '../../model/product.model';
 
@@ -23,28 +23,14 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   private sub: Subscription;
 
   constructor(
-    private route: ActivatedRoute,
     private store: Store<AppState>,
     private location: Location,
   ) {}
 
   ngOnInit() {
     this.sub = this.store
-      .pipe(select(getSelectedProduct))
-      .subscribe(product => {
-        if (product) {
-          this.product = product;
-        } else {
-          this.product = new ProductModel();
-        }
-      });
-    this.route.paramMap.subscribe(param => {
-      const id = param.get('productID');
-      if (id) {
-        this.store.dispatch(new ProductsActions.GetProduct(+id));
-        this.isProductNew = false;
-      }
-    });
+      .pipe(select(getSelectedProductByUrl))
+      .subscribe(p => this.product = p);
     // this.route.data.subscribe(data => {
     //   console.log(data);
     //   if (Object.keys(data).length !== 0) {

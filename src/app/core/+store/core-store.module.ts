@@ -4,16 +4,18 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from './../../../environments/environment';
-
+import { RouterStateSerializerProvider, routerReducers } from './router';
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(routerReducers),
     EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-  ]
+  ],
+  providers: [RouterStateSerializerProvider],
 })
-export class CoreStoreModule { }
+export class CoreStoreModule {}

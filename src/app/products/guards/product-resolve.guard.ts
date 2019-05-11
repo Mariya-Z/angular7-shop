@@ -30,16 +30,17 @@ export class ProductResolveGuard implements Resolve<ProductModel> {
     }
     const id = +route.paramMap.get('productID');
 
-    return this.productHttpService.getProduct(id).pipe(
-      map((product: ProductModel) => {
-        if (product) {
-          return product;
-        } else {
-          this.router.navigate(['/products']);
-          return null;
-        }
-      }),
-    );
+    return;
+    // this.productHttpService.getProduct(id).pipe(
+    //   map((product: ProductModel) => {
+    //     if (product) {
+    //       return product;
+    //     } else {
+    //       this.router.navigate(['/products']);
+    //       return null;
+    //     }
+    //   }),
+    // );
 
     // if service return Promise
 
