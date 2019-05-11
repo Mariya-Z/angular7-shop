@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 
 // @rxjs
 import { Store, select } from '@ngrx/store';
-import { AppState, ProductsState } from './../../../core/+store';
+import { AppState, getSelectedProduct } from './../../../core/+store';
 import * as ProductsActions from './../../../core/+store/products/products.actions';
 
 // ngrx
@@ -19,7 +19,6 @@ import { ProductModel } from '../../model/product.model';
 })
 export class ProductFormComponent implements OnInit, OnDestroy {
   product: ProductModel = new ProductModel();
-  productsState$: Observable<ProductsState>;
   isProductNew = true;
   private sub: Subscription;
 
@@ -30,17 +29,15 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.productsState$ = this.store.pipe(select('products'));
-    this.sub = this.productsState$.subscribe(
-      productsState => {
-        if (productsState.selectedProduct) {
-          this.product = productsState.selectedProduct;
+    this.sub = this.store
+      .pipe(select(getSelectedProduct))
+      .subscribe(product => {
+        if (product) {
+          this.product = product;
         } else {
           this.product = new ProductModel();
         }
-      },
-    );
-
+      });
     this.route.paramMap.subscribe(param => {
       const id = param.get('productID');
       if (id) {

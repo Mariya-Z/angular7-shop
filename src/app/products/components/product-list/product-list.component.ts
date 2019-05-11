@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 // @ngrx
 import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/core/+store';
+import { AppState, getProductData, getProductError } from './../../../core/+store';
 import * as ProductsActions from './../../../core/+store/products/products.actions';
 
 import { Observable } from 'rxjs';
@@ -17,9 +17,8 @@ import { ProductModel } from '../../model/product.model';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  // productList: Observable<ProductModel[]>;
-  // : Promise<ProductModel[]>;
-  productsState$: Observable<ProductModel>;
+  products$: Observable<ReadonlyArray<ProductModel>>;
+  productsError$: Observable<Error | string>;
 
   constructor(
     public cartService: CartService,
@@ -29,7 +28,8 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     console.log('We have a store! ', this.store);
-    this.productsState$ = this.store.pipe(select('products'));
+    this.products$ = this.store.pipe(select(getProductData));
+    this.productsError$ = this.store.pipe(select(getProductError));
     this.store.dispatch(new ProductsActions.GetProducts());
   }
 

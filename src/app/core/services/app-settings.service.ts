@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { CoreServicesModule } from '../core-services.module';
 import { LocalStorageService } from './local-storage.service';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: CoreServicesModule,
-})
+@Injectable()
 export class AppSettingsService {
   settings = [];
 
