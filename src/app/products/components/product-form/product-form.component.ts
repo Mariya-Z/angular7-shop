@@ -1,6 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 // @rxjs
 import { Store, select } from '@ngrx/store';
@@ -9,6 +7,7 @@ import * as ProductsActions from './../../../core/+store/products/products.actio
 
 // ngrx
 import { Subscription } from 'rxjs';
+import * as RouterActions from './../../../core/+store/router/router.actions';
 
 import { ProductModel } from '../../model/product.model';
 
@@ -22,22 +21,15 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   isProductNew = true;
   private sub: Subscription;
 
-  constructor(
-    private store: Store<AppState>,
-    private location: Location,
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.sub = this.store
-      .pipe(select(getSelectedProductByUrl))
-      .subscribe(p => this.product = p);
-    // this.route.data.subscribe(data => {
-    //   console.log(data);
-    //   if (Object.keys(data).length !== 0) {
-    //     this.product = { ...data.product };
-    //     this.isProductNew = false;
-    //   }
-    // });
+    this.sub = this.store.pipe(select(getSelectedProductByUrl)).subscribe(p => {
+      this.product = p;
+      if (this.product.id) {
+        this.isProductNew = false;
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -48,18 +40,6 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   }
 
   onProductSave() {
-    // for service with Observable
-    // const product = { ...this.product };
-    // const method = this.isProductNew ? 'createProduct' : 'updateProduct';
-    // this.sub = this.productHttpService[method](product).subscribe(
-    //   () =>
-    //     product.id
-    //       ? this.router.navigate(['product', { editedProductID: product.id }])
-    //       : this.onGoBack(),
-    //   (error: any) => console.log(error),
-    // );
-
-    // for service with promise
     const product = { ...this.product };
     if (this.isProductNew) {
       this.store.dispatch(new ProductsActions.CreateProduct(product));
@@ -69,7 +49,6 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   }
 
   onGoBack() {
-    // this.router.navigate(['./../../../'], { relativeTo: this.route });
-    this.location.back();
+    this.store.dispatch(new RouterActions.Back());
   }
 }

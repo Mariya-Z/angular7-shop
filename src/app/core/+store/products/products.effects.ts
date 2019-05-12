@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 // @ngrx
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as ProductsActions from './products.actions';
+import * as RouterActions from './../router/router.actions';
 
 // rxjs
 import { Observable } from 'rxjs';
-import { concatMap, pluck, switchMap } from 'rxjs/operators';
+import { concatMap, pluck, switchMap, map } from 'rxjs/operators';
 
 import { ProductHttpService } from 'src/app/products';
 import { ProductModel } from './../../../products/model/product.model';
@@ -17,7 +17,6 @@ import { ProductModel } from './../../../products/model/product.model';
 export class ProductsEffects {
   constructor(
     private actions$: Actions,
-    private router: Router,
     private productHttpService: ProductHttpService,
   ) {
     console.log('[Products Effects]');
@@ -48,10 +47,7 @@ export class ProductsEffects {
     concatMap((payload: ProductModel) =>
       this.productHttpService
         .updateProduct(payload)
-        .then(product => {
-          this.router.navigate(['/product-list']);
-          return new ProductsActions.UpdateProductSuccess(product);
-        })
+        .then(product => new ProductsActions.UpdateProductSuccess(product))
         .catch(err => new ProductsActions.UpdateProductError(err)),
     ),
   );
@@ -65,10 +61,7 @@ export class ProductsEffects {
     switchMap((payload: ProductModel) =>
       this.productHttpService
         .createProduct(payload)
-        .then(product => {
-          this.router.navigate(['/product-list']);
-          return new ProductsActions.CreateProductSuccess(product);
-        })
+        .then(product => new ProductsActions.CreateProductSuccess(product))
         .catch(err => new ProductsActions.CreateProductError(err)),
     ),
   );
@@ -87,5 +80,17 @@ export class ProductsEffects {
         })
         .catch(err => new ProductsActions.DeleteProductError(err)),
     ),
+  );
+
+  @Effect()
+  createUpdateProductSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType<
+      | ProductsActions.CreateProductSuccess
+      | ProductsActions.UpdateProductSuccess
+    >(
+      ProductsActions.ProductsActionTypes.CREATE_PRODUCT_SUCCESS,
+      ProductsActions.ProductsActionTypes.UPDATE_PRODUCT_SUCCESS,
+    ),
+    map(product => new RouterActions.Back()),
   );
 }

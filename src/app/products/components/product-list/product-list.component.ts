@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 // @ngrx
 import { Store, select } from '@ngrx/store';
 import { AppState, getProductData, getProductError } from './../../../core/+store';
 import * as ProductsActions from './../../../core/+store/products/products.actions';
+import * as RouterActions from './../../../core/+store/router/router.actions';
 
 import { Observable } from 'rxjs';
 
@@ -22,7 +22,6 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     public cartService: CartService,
-    private router: Router,
     private store: Store<AppState>,
   ) {}
 
@@ -40,12 +39,16 @@ export class ProductListComponent implements OnInit {
 
   onView(item: Item): void {
     const link = ['/product', item.id];
-    this.router.navigate(link);
+    this.store.dispatch(new RouterActions.Go({
+      path: link,
+    }));
   }
 
   onEditProduct(item: Item): void {
     const link = ['product/edit', item.id];
-    this.router.navigate(link);
+    this.store.dispatch(new RouterActions.Go({
+      path: link,
+    }));
   }
 
   onDelete(product: ProductModel): void {
