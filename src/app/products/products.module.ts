@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+// @ngrx
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductsEffects, productsReducer } from '../core/+store';
+
 import {
   ProductListComponent,
   ProductComponent,
@@ -29,6 +35,8 @@ import { ProductsServiceModule } from './products-service.module';
   ],
   imports: [
     CommonModule,
+    EffectsModule.forFeature([ProductsEffects]),
+    StoreModule.forFeature('products', productsReducer),
     FormsModule,
     SharedModule,
     ProductRoutingModule,

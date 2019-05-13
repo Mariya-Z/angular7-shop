@@ -1,9 +1,10 @@
 <h3>ProductListComponent</h3>
 
+<p *ngIf="(productsError$ | async) as value">{{value}}</p>
 <div>
   <div>
     <app-product
-      *ngFor="let product of (productList | async)"
+      *ngFor="let product of (products$ | async)"
       [product]="product"
       (editProduct)="onEditProduct($event)"
     >
