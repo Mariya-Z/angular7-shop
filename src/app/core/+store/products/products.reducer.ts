@@ -41,22 +41,11 @@ export function productsReducer(
       };
     }
 
-    // case ProductsActionTypes.CREATE_PRODUCT: {
-    //   console.log('CREATE_PRODUCT action being handled!');
-    //   const product = { ...(action.payload as ProductModel) };
-    //   return productAdapter.addOne(product, state);
-    // }
-
     case ProductsActionTypes.CREATE_PRODUCT_SUCCESS: {
       console.log('CREATE_PRODUCT_SUCCESS action being handled!');
       const product = { ...(action.payload as ProductModel) };
       return productAdapter.addOne(product, state);
     }
-
-    //     case ProductsActionTypes.UPDATE_PRODUCT: {
-    //       console.log('UPDATE_PRODUCT action being handled!');
-    //       return { ...state };
-    //     }
 
     case ProductsActionTypes.UPDATE_PRODUCT_SUCCESS: {
       console.log('UPDATE_PRODUCT_SUCCESS action being handled!');
@@ -94,9 +83,3 @@ export function productsReducer(
     }
   }
 }
-
-
-//     case ProductsActionTypes.DELETE_PRODUCT: {
-//       console.log('DELETE_PRODUCT action being handled!');
-//       return { ...state };
-//     }
