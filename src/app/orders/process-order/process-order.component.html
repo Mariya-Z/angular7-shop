@@ -1,72 +1,151 @@
-<form [formGroup]="orderForm"
-      (ngSubmit)="onSave()">
+<form [formGroup]="orderForm" (ngSubmit)="onSave()">
   <div>
-    <label for="name">Name</label>
+    <label for="nameId">Name</label>
     <input
+      [ngClass]="{
+        error:
+          (orderForm.get('name').touched || orderForm.get('name').dirty) &&
+          !orderForm.get('name').valid
+      }"
       type="text"
-      id="name"
+      id="nameId"
       placeholder="Name"
-      required
-      minlength="2"
       formControlName="name"
     />
+    <span
+      class="help-block"
+      *ngIf="
+        (orderForm.get('name').touched || orderForm.get('name').dirty) &&
+        orderForm.get('name').errors
+      "
+    >
+      <span *ngIf="orderForm.get('name').hasError('required')">
+        Please enter your first name.
+      </span>
+      <span *ngIf="orderForm.get('name').hasError('minlength')">
+        The first name must be longer than 2 characters.
+      </span>
+    </span>
   </div>
 
   <div>
-    <label for="name">Lastname</label>
+    <label for="lastnameId">Lastname</label>
     <input
+      [ngClass]="{
+        error:
+          (orderForm.get('lastname').touched ||
+            orderForm.get('lastname').dirty) &&
+          !orderForm.get('lastname').valid
+      }"
       type="text"
-      id="lastname"
+      id="lastnameId"
       placeholder="Lastname"
-      required
-      minlength="3"
       formControlName="lastname"
     />
+    <span
+      class="help-block"
+      *ngIf="
+        (orderForm.get('lastname').touched ||
+          orderForm.get('lastname').dirty) &&
+        orderForm.get('lastname').errors
+      "
+    >
+      <span *ngIf="orderForm.get('lastname').hasError('required')">
+        Please enter your last name.
+      </span>
+    </span>
   </div>
 
   <div>
-    <label for="name">Email</label>
+    <label for="emailId">Email</label>
     <input
-      type="text"
-      id="email"
+      [ngClass]="{
+        error:
+          (orderForm.get('email').touched || orderForm.get('email').dirty) &&
+          !orderForm.get('email').valid
+      }"
+      type="email"
+      id="emailId"
       placeholder="Email"
-      required
-      maxlength="30"
       formControlName="email"
     />
+    <span
+      class="help-block"
+      *ngIf="
+        (orderForm.get('email').touched || orderForm.get('email').dirty) &&
+        orderForm.get('email').errors
+      "
+    >
+      <span *ngIf="orderForm.get('email').hasError('required')">
+        Please enter your email address.
+      </span>
+      <span *ngIf="orderForm.get('email').hasError('pattern')">
+        Please enter a valid email address.
+      </span>
+      <span *ngIf="orderForm.get('email').hasError('email')">
+        Please enter a valid email address.
+      </span>
+    </span>
   </div>
 
   <div>
-    <label for="phone">Phone</label>
+    <label for="phoneId">Phone</label>
     <input
-      type="number"
-      id="phone"
+      [ngClass]="{
+        error:
+          (orderForm.get('phone').touched || orderForm.get('phone').dirty) &&
+          !orderForm.get('phone').valid
+      }"
+      type="text"
+      id="phoneId"
       placeholder="Phone"
-      required
-      minlength="5"
       formControlName="phone"
+    />
+    <span
+      class="help-block"
+      *ngIf="
+        (orderForm.get('phone').touched || orderForm.get('phone').dirty) &&
+        orderForm.get('phone').errors
+      "
+    >
+      <span *ngIf="orderForm.get('phone').hasError('required')">
+        Please enter your phone.
+      </span>
+      <span *ngIf="orderForm.get('phone').hasError('pattern')">
+        Please enter a valid phone.
+      </span>
+    </span>
+  </div>
+
+  <div>
+    <label for="deliveryId">Delivery</label>
+    <input
+      type="checkbox"
+      id="deliveryId"
+      (click)="onSetDelivery(orderForm.value.delivery)"
+      formControlName="delivery"
     />
   </div>
 
-  <div>
-    <label for="delivery">Delivery</label>
-    <input type="checkbox" 
-           id="delivery"
-           formControlName="delivery" />
-  </div>
-
-  <div *ngIf="delivery">
-    <label for="name">Adress</label>
+  <div *ngIf="orderForm.value.delivery">
+    <label for="adressId">Adress</label>
     <input
+      [ngClass]="{
+        error:
+          orderForm.value.delivery &&
+          (orderForm.get('adress').touched || orderForm.get('adress').dirty) &&
+          !orderForm.get('adress').valid
+      }"
       type="text"
-      id="adress"
+      id="adressId"
       placeholder="Adress"
-      required
-      minlength="10"
-      minlength="30"
       formControlName="adress"
     />
   </div>
 
-  <button type="submit">Submit</button>
+  <button type="submit" [disabled]="!orderForm.valid">Submit</button>
 </form>
+
+<br />Dirty: {{ orderForm.dirty }} <br />Touched: {{ orderForm.touched }}
+<br />Valid: {{ orderForm.valid }} <br />Value: {{ orderForm.value | json }}
+<br />Form Status: {{ orderForm.status }}
