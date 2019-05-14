@@ -1,0 +1,72 @@
+<form [formGroup]="orderForm"
+      (ngSubmit)="onSave()">
+  <div>
+    <label for="name">Name</label>
+    <input
+      type="text"
+      id="name"
+      placeholder="Name"
+      required
+      minlength="2"
+      formControlName="name"
+    />
+  </div>
+
+  <div>
+    <label for="name">Lastname</label>
+    <input
+      type="text"
+      id="lastname"
+      placeholder="Lastname"
+      required
+      minlength="3"
+      formControlName="lastname"
+    />
+  </div>
+
+  <div>
+    <label for="name">Email</label>
+    <input
+      type="text"
+      id="email"
+      placeholder="Email"
+      required
+      maxlength="30"
+      formControlName="email"
+    />
+  </div>
+
+  <div>
+    <label for="phone">Phone</label>
+    <input
+      type="number"
+      id="phone"
+      placeholder="Phone"
+      required
+      minlength="5"
+      formControlName="phone"
+    />
+  </div>
+
+  <div>
+    <label for="delivery">Delivery</label>
+    <input type="checkbox" 
+           id="delivery"
+           formControlName="delivery" />
+  </div>
+
+  <div *ngIf="delivery">
+    <label for="name">Adress</label>
+    <input
+      type="text"
+      id="adress"
+      placeholder="Adress"
+      required
+      minlength="10"
+      minlength="30"
+      formControlName="adress"
+    />
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
