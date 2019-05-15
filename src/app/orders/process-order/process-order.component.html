@@ -2,166 +2,88 @@
   <div>
     <label for="nameId">Name</label>
     <input
-      [ngClass]="{
-        error:
-          (orderForm.get('name').touched || orderForm.get('name').dirty) &&
-          !orderForm.get('name').valid
-      }"
+      [ngClass]="{ error: validationMessage.name }"
       type="text"
       id="nameId"
       placeholder="Name"
       formControlName="name"
+      (blur)="onBlur('name')"
     />
-    <span
-      class="help-block"
-      *ngIf="
-        (orderForm.get('name').touched || orderForm.get('name').dirty) &&
-        orderForm.get('name').errors
-      "
-    >
-      <span *ngIf="orderForm.get('name').hasError('required')">
-        Please enter your first name.
-      </span>
-      <span *ngIf="orderForm.get('name').hasError('minlength')">
-        The first name must be longer than 2 characters.
-      </span>
+    <span class="help-block" *ngIf="validationMessage.name">
+      {{ validationMessage.name }}
     </span>
   </div>
 
   <div>
     <label for="lastnameId">Lastname</label>
     <input
-      [ngClass]="{
-        error:
-          (orderForm.get('lastname').touched ||
-            orderForm.get('lastname').dirty) &&
-          !orderForm.get('lastname').valid
-      }"
+      [ngClass]="{ error: validationMessage.lastname }"
       type="text"
       id="lastnameId"
       placeholder="Lastname"
       formControlName="lastname"
+      (blur)="onBlur('lastname')"
     />
-    <span
-      class="help-block"
-      *ngIf="
-        (orderForm.get('lastname').touched ||
-          orderForm.get('lastname').dirty) &&
-        orderForm.get('lastname').errors
-      "
-    >
-      <span *ngIf="orderForm.get('lastname').hasError('required')">
-        Please enter your last name.
-      </span>
+    <span class="help-block" *ngIf="validationMessage.lastname">
+      {{ validationMessage.lastname }}
     </span>
   </div>
 
   <div>
     <label for="emailId">Email</label>
     <input
-      [ngClass]="{
-        error:
-          (orderForm.get('email').touched || orderForm.get('email').dirty) &&
-          !orderForm.get('email').valid
-      }"
+      [ngClass]="{ error: validationMessage.email }"
       type="email"
       id="emailId"
       placeholder="Email"
       formControlName="email"
+      (blur)="onBlur('email')"
     />
-    <span
-      class="help-block"
-      *ngIf="
-        (orderForm.get('email').touched || orderForm.get('email').dirty) &&
-        orderForm.get('email').errors
-      "
-    >
-      <span *ngIf="orderForm.get('email').hasError('required')">
-        Please enter your email address.
-      </span>
-      <span *ngIf="orderForm.get('email').hasError('pattern')">
-        Please enter a valid email address.
-      </span>
-      <span *ngIf="orderForm.get('email').hasError('email')">
-        Please enter a valid email address.
-      </span>
+    <span class="help-block" *ngIf="validationMessage.email">
+      {{ validationMessage.email }}
     </span>
   </div>
 
   <div>
     <label for="phoneId">Phone</label>
     <input
-      [ngClass]="{
-        error:
-          (orderForm.get('phone').touched || orderForm.get('phone').dirty) &&
-          !orderForm.get('phone').valid
-      }"
+      [ngClass]="{ error: validationMessage.phone }"
       type="text"
       id="phoneId"
       placeholder="Phone"
       formControlName="phone"
+      (blur)="onBlur('phone')"
     />
-    <span
-      class="help-block"
-      *ngIf="
-        (orderForm.get('phone').touched || orderForm.get('phone').dirty) &&
-        orderForm.get('phone').errors
-      "
-    >
-      <span *ngIf="orderForm.get('phone').hasError('required')">
-        Please enter your phone.
-      </span>
-      <span *ngIf="orderForm.get('phone').hasError('pattern')">
-        Please enter a valid phone.
-      </span>
+    <span class="help-block" *ngIf="validationMessage.phone">
+      {{ validationMessage.phone }}
     </span>
   </div>
 
   <div>
     <label for="deliveryId">Delivery</label>
-    <input
-      type="checkbox"
-      id="deliveryId"
-      formControlName="delivery"
-    />
+    <input type="checkbox" id="deliveryId" formControlName="delivery" />
   </div>
 
   <div *ngIf="orderForm.value.delivery">
     <label for="adressId">Adress</label>
     <input
-      [ngClass]="{
-        error:
-          orderForm.value.delivery &&
-          (orderForm.get('adress').touched || orderForm.get('adress').dirty) &&
-          !orderForm.get('adress').valid
-      }"
+      [ngClass]="{ error: validationMessage.adress }"
       type="text"
       id="adressId"
       placeholder="Adress"
       formControlName="adress"
+      (blur)="onBlur('adress')"
     />
-    <span
-      class="help-block"
-      *ngIf="
-        (orderForm.get('adress').touched || orderForm.get('adress').dirty) &&
-        orderForm.get('adress').errors
-      "
-    >
-      <span *ngIf="orderForm.get('adress').hasError('required')">
-        Please enter your adress.
-      </span>
-      <span *ngIf="orderForm.get('adress').hasError('minlength')">
-        The adress must be longer than 5 characters.
-      </span>
-      <span *ngIf="orderForm.get('adress').hasError('maxlength')">
-        The adress must be shorter than 50 characters.
-      </span>
+    <span class="help-block" *ngIf="validationMessage.adress">
+      {{ validationMessage.adress }}
     </span>
   </div>
 
   <button type="submit" [disabled]="!orderForm.valid">Submit</button>
 </form>
 
-<br />Dirty: {{ orderForm.dirty }} <br />Touched: {{ orderForm.touched }}
-<br />Valid: {{ orderForm.valid }} <br />Value: {{ orderForm.value | json }}
+<br />Dirty: {{ orderForm.dirty }} 
+<br />Touched: {{ orderForm.touched }}
+<br />Valid: {{ orderForm.valid }} 
+<br />Value: {{ orderForm.value | json }}
 <br />Form Status: {{ orderForm.status }}
