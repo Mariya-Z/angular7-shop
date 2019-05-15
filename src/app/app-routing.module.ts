@@ -11,6 +11,10 @@ const routes: Routes = [
     component: ProductListComponent,
   },
   {
+    path: 'order',
+    loadChildren: './orders/orders.module#OrdersModule',
+  },
+  {
     path: 'login',
     component: LoginComponent,
   },

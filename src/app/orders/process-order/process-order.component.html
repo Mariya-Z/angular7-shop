@@ -1,0 +1,96 @@
+<form [formGroup]="orderForm" (ngSubmit)="onSave()" novalidate>
+  <div>
+    <label for="nameId">Name</label>
+    <input
+      [ngClass]="{ error: validationMessage.name }"
+      type="text"
+      id="nameId"
+      placeholder="Name"
+      formControlName="name"
+      (blur)="onBlur('name')"
+    />
+    <span class="help-block" *ngIf="validationMessage.name">
+      {{ validationMessage.name }}
+    </span>
+  </div>
+
+  <div>
+    <label for="lastnameId">Lastname</label>
+    <input
+      [ngClass]="{ error: validationMessage.lastname }"
+      type="text"
+      id="lastnameId"
+      placeholder="Lastname"
+      formControlName="lastname"
+      (blur)="onBlur('lastname')"
+    />
+    <span class="help-block" *ngIf="validationMessage.lastname">
+      {{ validationMessage.lastname }}
+    </span>
+  </div>
+
+  <div>
+    <label for="emailId">Email</label>
+    <input
+      [ngClass]="{ error: validationMessage.email }"
+      type="email"
+      id="emailId"
+      placeholder="Email"
+      formControlName="email"
+      (blur)="onBlur('email')"
+    />
+    <span class="help-block" *ngIf="validationMessage.email">
+      {{ validationMessage.email }}
+    </span>
+  </div>
+
+  <div formArrayName="phones">
+    <div *ngFor="let phone of phones.controls; let i = index">
+      <div>
+        <label attr.for="{{ 'phoneId' + i }}">Phone</label>
+        <input
+          type="text"
+          id="{{ 'phoneId' + i }}"
+          placeholder="Phone"
+          formControlName="{{ i }}"
+        />
+      </div>
+    </div>
+    <div>
+      <button (click)="onAddPhone()" type="button">
+        Add phone
+      </button>
+      <button (click)="onRemovePhone()" type="button">
+        Remove phone
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <label for="deliveryId">Delivery</label>
+    <input type="checkbox" id="deliveryId" formControlName="delivery" />
+  </div>
+
+  <div *ngIf="orderForm.value.delivery">
+    <label for="adressId">Adress</label>
+    <input
+      [ngClass]="{ error: validationMessage.adress }"
+      type="text"
+      id="adressId"
+      placeholder="Adress"
+      formControlName="adress"
+      (blur)="onBlur('adress')"
+    />
+    <span class="help-block" *ngIf="validationMessage.adress">
+      {{ validationMessage.adress }}
+    </span>
+  </div>
+
+  <button type="submit" [disabled]="!orderForm.valid">Submit</button>
+</form>
+
+<br />Dirty: {{ orderForm.dirty }}
+ <br />Touched: {{ orderForm.touched }}
+<br />Valid: {{ orderForm.valid }} 
+<br />Value: {{ orderForm.value | json }}
+<br />Form Status: {{ orderForm.status }}

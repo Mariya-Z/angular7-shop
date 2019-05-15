@@ -6,7 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductsModule } from './products/products.module';
 import { CartModule } from './cart/cart.module';
 import { CoreModule } from './core/core.module';
-import { OrdersModule } from './orders/orders.module';
 import { SharedModule } from './shared/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +22,6 @@ import { TimingInterceptor } from './core/interceptors/timing.interceptor';
     ProductsModule,
     CartModule,
     CoreModule,
-    OrdersModule,
     SharedModule,
 
     // LAST ONE
