@@ -44,19 +44,26 @@
     </span>
   </div>
 
-  <div>
-    <label for="phoneId">Phone</label>
-    <input
-      [ngClass]="{ error: validationMessage.phone }"
-      type="text"
-      id="phoneId"
-      placeholder="Phone"
-      formControlName="phone"
-      (blur)="onBlur('phone')"
-    />
-    <span class="help-block" *ngIf="validationMessage.phone">
-      {{ validationMessage.phone }}
-    </span>
+  <div formArrayName="phones">
+    <div *ngFor="let phone of phones.controls; let i = index">
+      <div>
+        <label attr.for="{{ 'phoneId' + i }}">Phone</label>
+        <input
+          type="text"
+          id="{{ 'phoneId' + i }}"
+          placeholder="Phone"
+          formControlName="{{ i }}"
+        />
+      </div>
+    </div>
+    <div>
+      <button (click)="onAddPhone()" type="button">
+        Add phone
+      </button>
+      <button (click)="onRemovePhone()" type="button">
+        Remove phone
+      </button>
+    </div>
   </div>
 
   <div>
@@ -82,8 +89,8 @@
   <button type="submit" [disabled]="!orderForm.valid">Submit</button>
 </form>
 
-<br />Dirty: {{ orderForm.dirty }} 
-<br />Touched: {{ orderForm.touched }}
+<br />Dirty: {{ orderForm.dirty }}
+ <br />Touched: {{ orderForm.touched }}
 <br />Valid: {{ orderForm.valid }} 
 <br />Value: {{ orderForm.value | json }}
 <br />Form Status: {{ orderForm.status }}

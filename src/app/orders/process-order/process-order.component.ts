@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
+  FormArray,
   FormControl,
   Validators,
   AbstractControl,
@@ -23,7 +24,6 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
     name: '',
     lastname: '',
     email: '',
-    phone: '',
     adress: '',
   };
   private sub: Subscription;
@@ -42,11 +42,6 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
       pattern: 'Please enter a incorrect email address.',
       email: 'Please enter a valid email address.',
     },
-    phone: {
-      required: 'Please enter your phone.',
-      pattern: 'Please use only numbers and +.',
-      minlength: 'The phone must be longer than 5 characters.',
-    },
     adress: {
       required: 'Please enter your address.',
       minlength: 'The adress must be longer than 5 characters.',
@@ -55,6 +50,10 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
   };
 
   constructor(private fb: FormBuilder) {}
+
+  get phones(): FormArray {
+    return this.orderForm.get('phones') as FormArray;
+  }
 
   ngOnInit() {
     // this.formInit();
@@ -81,15 +80,25 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
     this.setValidationMessage(emailControl, name);
   }
 
-  private setValidationMessage(c: AbstractControl, controlName: string) {
-    console.log(this.validationMessage[controlName]);
-    this.validationMessage[controlName] = '';
+  onAddPhone(): void {
+    this.phones.push(this.buildPhone());
+  }
 
+  onRemovePhone(): void {
+    this.phones.removeAt(this.phones.length - 1);
+  }
+
+  private setValidationMessage(c: AbstractControl, controlName: string) {
+    this.validationMessage[controlName] = '';
     if ((c.touched || c.dirty) && c.errors) {
       this.validationMessage[controlName] = Object.keys(c.errors)
         .map(key => this.validationMessagesMap[controlName][key])
         .join(' ');
     }
+  }
+
+  private buildPhone(): FormControl {
+    return this.fb.control('');
   }
 
   private buildForm() {
@@ -108,14 +117,7 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
             Validators.email,
           ],
         ],
-        phone: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(5),
-            Validators.pattern('[+]?[0-9]+'),
-          ],
-        ],
+        phones: this.fb.array([this.buildPhone()]),
         delivery: [true, { updateOn: 'change' }],
         adress: [
           '',
@@ -140,7 +142,6 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
       .pipe(debounceTime(1000))
       .subscribe(value => {
         this.setValidationMessage(nameControl, 'name');
-        console.log(this.validationMessage);
       });
 
     const lastnameControl = this.orderForm.get('lastname');
@@ -148,18 +149,12 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
       .pipe(debounceTime(1000))
       .subscribe(value => {
         this.setValidationMessage(lastnameControl, 'lastname');
-        console.log(this.validationMessage);
       });
 
     const emailControl = this.orderForm.get('email');
     const subEmail = emailControl.valueChanges
       .pipe(debounceTime(1000))
       .subscribe(value => this.setValidationMessage(emailControl, 'email'));
-
-    const phoneControl = this.orderForm.get('phone');
-    const subPhone = phoneControl.valueChanges
-      .pipe(debounceTime(1000))
-      .subscribe(value => this.setValidationMessage(phoneControl, 'phone'));
 
     const adressControl = this.orderForm.get('adress');
     const subAdress = adressControl.valueChanges
@@ -170,7 +165,6 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
       .add(subName)
       .add(subLastame)
       .add(subEmail)
-      .add(subPhone)
       .add(subAdress);
   }
 
