@@ -56,8 +56,15 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
             Validators.pattern('[+]?[0-9]+'),
           ],
         ],
-        delivery: true,
-        adress: ['', [Validators.minLength(5), Validators.maxLength(50)]],
+        delivery: [true, { updateOn: 'change' }],
+        adress: [
+          '',
+          [
+            Validators.minLength(5),
+            Validators.maxLength(50),
+            Validators.required,
+          ],
+        ],
       },
       { updateOn: 'blur' },
     );
@@ -81,12 +88,13 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
 
   private setDelivery(delivery: boolean) {
     const adressControl = this.orderForm.get('adress');
-    if (delivery) {
+    if (!delivery) {
       adressControl.clearValidators();
     } else {
       adressControl.setValidators([
         Validators.minLength(5),
         Validators.maxLength(50),
+        Validators.required,
       ]);
     }
     adressControl.updateValueAndValidity();

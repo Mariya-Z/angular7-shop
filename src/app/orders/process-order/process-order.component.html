@@ -1,4 +1,4 @@
-<form [formGroup]="orderForm" (ngSubmit)="onSave()">
+<form [formGroup]="orderForm" (ngSubmit)="onSave()" novalidate>
   <div>
     <label for="nameId">Name</label>
     <input
@@ -140,6 +140,23 @@
       placeholder="Adress"
       formControlName="adress"
     />
+    <span
+      class="help-block"
+      *ngIf="
+        (orderForm.get('adress').touched || orderForm.get('adress').dirty) &&
+        orderForm.get('adress').errors
+      "
+    >
+      <span *ngIf="orderForm.get('adress').hasError('required')">
+        Please enter your adress.
+      </span>
+      <span *ngIf="orderForm.get('adress').hasError('minlength')">
+        The adress must be longer than 5 characters.
+      </span>
+      <span *ngIf="orderForm.get('adress').hasError('maxlength')">
+        The adress must be shorter than 50 characters.
+      </span>
+    </span>
   </div>
 
   <button type="submit" [disabled]="!orderForm.valid">Submit</button>
