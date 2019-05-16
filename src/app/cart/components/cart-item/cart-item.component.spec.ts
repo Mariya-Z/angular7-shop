@@ -3,7 +3,6 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { CartItemComponent } from './cart-item.component';
-import { CartListComponent } from '../cart-list/cart-list.component';
 
 describe('CartItemComponent', () => {
   let component: CartItemComponent;

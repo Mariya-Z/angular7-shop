@@ -4,6 +4,7 @@ import { ConfigOptionsService } from '../services/config-options.service';
 import { ConstantsService } from '../services/constants.service';
 import { generatorN, GeneratorNFactory } from '../services/generator-n.factory';
 import { GeneratorService } from '../services/generator.service';
+import { Item } from './../../core/interfaces';
 
 const constant = {
   service: 'ConstantsService',

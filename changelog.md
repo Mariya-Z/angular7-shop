@@ -19,3 +19,14 @@ Task6
 2. Http service has been added
 3. ProductHttpService has all methods to get, create, update and delete products
 4. TimingInterceptor has been added
+
+Task9
+1. Test pipe - OrderByPipe
+2. Test service - AuthService
+3. Test component - CartItemComponent
+4. Shallow test app
+5. Code-coverage
+    Statements   : 86.27% ( 44/51 )
+    Branches     : 100% ( 0/0 )
+    Functions    : 62.5% ( 10/16 )
+    Lines        : 83.72% ( 36/43 )

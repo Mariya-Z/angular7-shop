@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CoreServicesModule } from '../core-services.module';
+import { Item } from './../interfaces';
 
 @Injectable({
   providedIn: CoreServicesModule,

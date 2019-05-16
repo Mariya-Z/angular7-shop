@@ -1,35 +1,75 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA, DebugElement, Input, Directive } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+
 import { AppComponent } from './app.component';
+import { By } from '@angular/platform-browser';
+
+
+@Directive({
+  // tslint:disable-next-line:directive-selector
+  selector: '[routerLink]',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '(click)': 'onClick()'
+  }
+})
+export class RouterLinkStubDirective {
+  // tslint:disable-next-line:no-input-rename
+  @Input('routerLink') linkParams: any;
+  navigatedTo: any = null;
+
+  onClick() {
+    this.navigatedTo = this.linkParams;
+  }
+}
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  let fixture: ComponentFixture<AppComponent>;
+  let links: RouterLinkStubDirective[];
+  let linkDes: DebugElement[];
+
+  beforeEach((() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+      declarations: [AppComponent, RouterLinkStubDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+    });
+
+    fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    linkDes = fixture.debugElement.queryAll(
+      By.directive(RouterLinkStubDirective),
+    );
+
+    links = linkDes.map(
+      d => d.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective,
+    );
   }));
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'shop'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('shop');
+  it('can get RouterLinks from template ', () => {
+    expect(links.length).toBe(4);
+    expect(links[0].linkParams).toBe('/admin');
+    expect(links[1].linkParams).toBe('/product-list');
+    expect(links[2].linkParams).toBe('/order');
+    expect(links[3].linkParams).toBe('/login');
   });
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('can click  link in template', () => {
+    const productLinkDe = linkDes[2];
+    const   productLink = links[2];
+
+    expect(productLink.navigatedTo).toBeNull(
+      'link should not have navigated yet'
+    );
+
+    productLinkDe.triggerEventHandler('click', null);
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to shop!');
+
+    expect(productLink.navigatedTo).toBe('/order');
   });
 });
