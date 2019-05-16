@@ -1,6 +1,6 @@
 import { OrderByPipe } from './order-by.pipe';
 
-fdescribe('OrderByPipe', () => {
+describe('OrderByPipe', () => {
   const pipe = new OrderByPipe();
 
   const mockCart = [

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-cart-item',
@@ -22,5 +22,4 @@ export class CartItemComponent {
   onIncrease() {
     this.increaseEmit.emit(this.product);
   }
-
 }
