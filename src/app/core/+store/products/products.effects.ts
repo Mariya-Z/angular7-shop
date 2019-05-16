@@ -58,7 +58,7 @@ export class ProductsEffects {
       ProductsActions.ProductsActionTypes.CREATE_PRODUCT,
     ),
     pluck('payload'),
-    switchMap((payload: ProductModel) =>
+    concatMap((payload: ProductModel) =>
       this.productHttpService
         .createProduct(payload)
         .then(product => new ProductsActions.CreateProductSuccess(product))

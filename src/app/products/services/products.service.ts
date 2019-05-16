@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Item } from './../../core/interfaces';
 
 const tomato = {
   id: 1,

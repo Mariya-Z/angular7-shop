@@ -12,6 +12,7 @@ export class CartListComponent implements DoCheck {
   productList: ProductList[];
   productNumber: number;
   productSum: number;
+  selectedOption: string;
 
   constructor(public cartService: CartService) {}
 

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 
 import { CartService } from 'src/app/cart/services/cart.service';
 import { ProductModel } from '../../model/product.model';
+import { Item } from './../../../core/interfaces';
 
 @Component({
   selector: 'app-product-list',
