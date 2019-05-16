@@ -4,9 +4,17 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { HighlightDirective, ShowUpDirective } from './directives';
 import { PathNotFoundComponent, LoginComponent } from './components';
 
+export const sharedComponents = [
+  HighlightDirective,
+  ShowUpDirective,
+  OrderByPipe,
+  PathNotFoundComponent,
+  LoginComponent,
+];
+
 @NgModule({
-  declarations: [HighlightDirective, ShowUpDirective, OrderByPipe, PathNotFoundComponent, LoginComponent],
-  exports: [HighlightDirective, ShowUpDirective, OrderByPipe, PathNotFoundComponent, LoginComponent],
+  declarations: [...sharedComponents],
+  exports: [...sharedComponents],
   imports: [CommonModule],
 })
 export class SharedModule {}

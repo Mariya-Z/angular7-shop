@@ -6,7 +6,7 @@
     <p>Price: {{ product.price | currency: 'EUR' }}</p>
     <p>Available: {{ product.isAvailable }}</p>
     <p>Ingredients: {{ product.ingredients }}</p>
-    <p *ngIf="weight">Weight: {{ product.weight }}</p>
+    <p *ngIf="product.weight">Weight: {{ product.weight }}</p>
 
     <button *ngIf="productHttpService.isDisplayed" (click)="onGoBack()">
       Back

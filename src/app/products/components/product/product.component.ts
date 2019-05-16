@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { switchMap } from 'rxjs/operators';
+
 import { ProductHttpService } from '../../services';
 import { ProductModel } from '../../model/product.model';
-import { Location } from '@angular/common';
+import { Item } from './../../../core/interfaces';
 
 export enum category {
   FOOD,
@@ -24,7 +26,7 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productHttpService: ProductHttpService,
+    public productHttpService: ProductHttpService,
     private router: Router,
     private location: Location,
   ) {}

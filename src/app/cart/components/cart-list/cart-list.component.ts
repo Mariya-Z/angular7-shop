@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, DoCheck } from '@angular/core';
 import { CartService } from 'src/app/cart/services/cart.service';
+import { ProductList } from './../../../core/interfaces/product-list';
 
 @Component({
   selector: 'app-cart-list',
@@ -11,6 +12,7 @@ export class CartListComponent implements DoCheck {
   productList: ProductList[];
   productNumber: number;
   productSum: number;
+  selectedOption: string;
 
   constructor(public cartService: CartService) {}
 
